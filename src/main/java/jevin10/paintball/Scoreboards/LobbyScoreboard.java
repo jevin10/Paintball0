@@ -1,6 +1,7 @@
 package jevin10.paintball.Scoreboards;
 
 import jevin10.paintball.ComponentHandler;
+import jevin10.paintball.Paintball;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -9,6 +10,11 @@ import org.bukkit.scoreboard.*;
 public class LobbyScoreboard {
 
     public static void newTest(Player p) {
+
+        // Check if player is in pbWorld
+        if(p.getWorld() != Paintball.getPbWorld()) {
+            return;
+        }
 
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard scoreboard = manager.getNewScoreboard();
