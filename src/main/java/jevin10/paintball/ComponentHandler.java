@@ -1,10 +1,12 @@
 package jevin10.paintball;
 
+import jevin10.paintball.Utils.ColorTranslator;
 import net.md_5.bungee.api.chat.TextComponent;
 
-public class ComponentStuff {
+public class ComponentHandler {
     static int colorFrame = 0;
     static TextComponent blueTeamComponent;
+    static TextComponent tdmComponent = ColorTranslator.translateColorCodesToTextComponent("&#22fd5fT&#30f057D&#3ee24eM");
 
     public static TextComponent getBlueTeamComponent() {
         return blueTeamComponent;
@@ -24,5 +26,9 @@ public class ComponentStuff {
         } else {
             colorFrame++;
         }
+    }
+
+    public static TextComponent getTdmComponent() {
+        return tdmComponent;
     }
 }

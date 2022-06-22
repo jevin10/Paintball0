@@ -1,6 +1,6 @@
 package jevin10.paintball.Runnables;
 
-import jevin10.paintball.Scoreboards.TestScoreboard;
+import jevin10.paintball.Scoreboards.LobbyScoreboard;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -14,6 +14,6 @@ public class ScoreboardRunnable extends BukkitRunnable {
 
     @Override
     public void run() {
-        TestScoreboard.newTest(p);
+        LobbyScoreboard.newTest(p);
     }
 }

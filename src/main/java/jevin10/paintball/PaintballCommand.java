@@ -1,14 +1,11 @@
 package jevin10.paintball;
 
 import jevin10.paintball.Runnables.ScoreboardRunnable;
-import jevin10.paintball.Runnables.TeamComponentRunnable;
-import jevin10.paintball.Scoreboards.TestScoreboard;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.scoreboard.DisplaySlot;
 import org.jetbrains.annotations.NotNull;
 
 import static jevin10.paintball.Paintball.plugin;
