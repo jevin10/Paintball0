@@ -3,3 +3,7 @@ version: '${project.version}'
 main: jevin10.paintball.Paintball
 api-version: 1.19
 authors: [ jevin10 ]
+commands:
+  paintball:
+    description: Commands related to MetaCraft's paintball plugin.
+    usage: /<command> <argument>
