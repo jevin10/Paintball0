@@ -1,7 +1,7 @@
 name: Paintball
 version: '${project.version}'
 main: jevin10.paintball.Paintball
-api-version: 1.19
+api-version: 1.18
 authors: [ jevin10 ]
 commands:
   paintball:
