@@ -6,14 +6,27 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class LobbyAnnouncerRunnable extends BukkitRunnable {
-
+    static int announcerFrame = 0;
     @Override
     public void run() {
         if (Paintball.getPbWorld() == null) {
             return;
         }
         for (Player player : Paintball.getPbWorld().getPlayers()) {
+            BossBars.showMyBossBar(player);
+        }
+        incrementAnnouncerFrame();
+    }
 
+    public static int getAnnouncerFrame() {
+        return announcerFrame;
+    }
+
+    public static void incrementAnnouncerFrame() {
+        if (announcerFrame >= 9) {
+            announcerFrame = 0;
+        } else {
+            announcerFrame++;
         }
     }
 }
