@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
 public class LobbyScoreboard {
-
     public static void newTest(Player p) {
 
         // Check if player is in pbWorld
@@ -19,44 +18,61 @@ public class LobbyScoreboard {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard scoreboard = manager.getNewScoreboard();
 
-        Objective objective = scoreboard.registerNewObjective("lobby", "dummy", ChatColor.BOLD + "Lobby Info");
-        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        // DisplaySlot.SIDEBAR
+        Objective lobbyObjective = getLobbyObjective(scoreboard);
+
+        // no DisplaySlot
+
+        p.setScoreboard(scoreboard);
+
+    }
+
+    public static Objective getLobbyObjective(Scoreboard scoreboard) {
+        Objective lobbyObjective = scoreboard.registerNewObjective("lobby", "dummy", ChatColor.BOLD + "Lobby Info");
+        lobbyObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         // WARNING: Entries cannot be duplicates.
 
         // Score 8: " " (1 space)
-        objective.getScore(" ").setScore(8);
+        lobbyObjective.getScore(" ").setScore(8);
 
         // Score 7: "Mode: TDM"
         scoreboard.registerNewTeam("gameModeDisplay");
         Team gameModeDisplay = scoreboard.getTeam("gameModeDisplay");
         gameModeDisplay.setSuffix(ComponentHandler.getTdmComponent().toLegacyText());
         gameModeDisplay.addEntry("Mode: ");
-        objective.getScore("Mode: ").setScore(7);
+        lobbyObjective.getScore("Mode: ").setScore(7);
 
         // Score 6: "[teamScoreDisplay]"
         scoreboard.registerNewTeam("teamScoreDisplay");
         Team teamScoreDisplay = scoreboard.getTeam("teamScoreDisplay");
         teamScoreDisplay.setSuffix(ComponentHandler.getBlueTeamComponent().toLegacyText());
         teamScoreDisplay.addEntry("Team: ");
-        objective.getScore("Team: ").setScore(6);
+        lobbyObjective.getScore("Team: ").setScore(6);
 
         // Score 5: "Players: [getPlayerCount]"
-        objective.getScore("Players: null").setScore(5);
+        lobbyObjective.getScore("Players: " + Paintball.getGameScoreboard().getPlayers().size()).setScore(5);
 
         // Score 4: "  " (2 space)
-        objective.getScore("  ").setScore(4);
+        lobbyObjective.getScore("  ").setScore(4);
 
         // Score 3: Game Starts:
         // Score 2: [TimeLeft]
-        objective.getScore("Game Starts:").setScore(3);
-        objective.getScore("null").setScore(2);
+        lobbyObjective.getScore("Game Starts:").setScore(3);
+        lobbyObjective.getScore("null").setScore(2);
 
         // Score 1: "  " (3 space)
-        objective.getScore("   ").setScore(1);
+        lobbyObjective.getScore("   ").setScore(1);
 
-        p.setScoreboard(scoreboard);
-
+        return lobbyObjective;
     }
+
+    public static Objective getGameObjective(Scoreboard scoreboard) {
+        Objective gameObjective = scoreboard.registerNewObjective("lobby", "dummy", "Game Objective");
+
+        return gameObjective;
+    }
+
+
 
 }

@@ -23,10 +23,10 @@ public class LobbyAnnouncerRunnable extends BukkitRunnable {
     }
 
     public static void incrementAnnouncerFrame() {
-        if (announcerFrame >= 9) {
+        if (announcerFrame >= 200) {
             announcerFrame = 0;
-        } else {
-            announcerFrame++;
+            return;
         }
+        announcerFrame++;
     }
 }

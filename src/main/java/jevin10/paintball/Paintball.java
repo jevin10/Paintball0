@@ -1,6 +1,8 @@
 package jevin10.paintball;
 
+import jevin10.paintball.Runnables.LobbyAnnouncerRunnable;
 import jevin10.paintball.Runnables.TeamComponentRunnable;
+import jevin10.paintball.Scoreboards.GameScoreboard;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -13,6 +15,8 @@ public final class Paintball extends JavaPlugin {
     static Plugin plugin;
     static World pbWorld = null;
 
+    static GameScoreboard gameScoreboard = new GameScoreboard();
+
     @Override
     public void onEnable() {
 
@@ -20,7 +24,10 @@ public final class Paintball extends JavaPlugin {
 
         // Plugin startup logic
         getCommand("paintball").setExecutor(new PaintballCommand());
+
         BukkitTask teamComponentRunnable = new TeamComponentRunnable().runTaskTimer(plugin, 20L, 20L);
+
+        BukkitTask lobbyAnnouncerRunnable1 = new LobbyAnnouncerRunnable().runTaskTimer(plugin, 0L, 2L);
 
     }
 
@@ -39,5 +46,9 @@ public final class Paintball extends JavaPlugin {
 
     public static void setPbWorld(World pbWorld) {
         Paintball.pbWorld = pbWorld;
+    }
+
+    public static GameScoreboard getGameScoreboard() {
+        return gameScoreboard;
     }
 }
