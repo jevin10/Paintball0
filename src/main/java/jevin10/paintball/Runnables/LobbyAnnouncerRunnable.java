@@ -12,6 +12,12 @@ public class LobbyAnnouncerRunnable extends BukkitRunnable {
         if (Paintball.getPbWorld() == null) {
             return;
         }
+        if (Paintball.getGameScoreboard().getGameInstance().equalsIgnoreCase("arena")) {
+            for (Player player : Paintball.getPbWorld().getPlayers()) {
+                BossBars.hideActiveBossBar(player);
+            }
+            return;
+        }
         for (Player player : Paintball.getPbWorld().getPlayers()) {
             BossBars.showMyBossBar(player);
         }

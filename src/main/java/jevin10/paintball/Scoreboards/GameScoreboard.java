@@ -17,6 +17,7 @@ public class GameScoreboard {
     Team noTeam = null;
     int blueTeamKills = 0;
     int redTeamKills = 0;
+    String gameInstance = "lobby";
 
     public GameScoreboard() {
         Objective killsObjective = scoreboard.registerNewObjective("kills", "dummy", "kills");
@@ -113,5 +114,21 @@ public class GameScoreboard {
         }
 
         return playerList;
+    }
+
+    /**
+     *
+     * @return instance of the game as a String, "lobby" or "arena"
+     */
+    public String getGameInstance() {
+        return gameInstance;
+    }
+
+    /**
+     *
+     * @param gameInstance sets the instance of the game, make it either "lobby" or "arena"
+     */
+    public void setGameInstance(String gameInstance) {
+        this.gameInstance = gameInstance;
     }
 }
