@@ -1,8 +1,12 @@
 package jevin10.paintball;
 
+import jevin10.paintball.Exceptions.MenuManagerException;
+import jevin10.paintball.Exceptions.MenuManagerNotSetupException;
+import jevin10.paintball.Menus.ChooseTeamMenu;
 import jevin10.paintball.Runnables.LobbyAnnouncerRunnable;
 import jevin10.paintball.Runnables.ScoreboardRunnable;
 import jevin10.paintball.Scoreboards.BossBars;
+import jevin10.paintball.Utils.MenuManager.MenuManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,6 +28,12 @@ public class PaintballCommand implements CommandExecutor {
             BossBars.showMyBossBar(p);
 
             Paintball.getGameScoreboard().addPlayerToTeam("red", p);
+
+            try {
+                MenuManager.openMenu(ChooseTeamMenu.class, p);
+            } catch (MenuManagerException | MenuManagerNotSetupException e) {
+                e.printStackTrace();
+            }
 
             BukkitTask teamComponentRunnable = new ScoreboardRunnable(p).runTaskTimer(plugin, 20L, 20L);
         }

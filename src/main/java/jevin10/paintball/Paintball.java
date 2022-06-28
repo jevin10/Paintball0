@@ -1,10 +1,10 @@
 package jevin10.paintball;
 
+import jevin10.paintball.Utils.MenuManager.MenuManager;
 import jevin10.paintball.Runnables.LobbyAnnouncerRunnable;
 import jevin10.paintball.Runnables.TeamComponentRunnable;
 import jevin10.paintball.Scoreboards.GameScoreboard;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
@@ -24,6 +24,9 @@ public final class Paintball extends JavaPlugin {
 
         // Plugin startup logic
         getCommand("paintball").setExecutor(new PaintballCommand());
+
+        // Setup MenuManager
+        MenuManager.setup(this.getServer(), plugin);
 
         BukkitTask teamComponentRunnable = new TeamComponentRunnable().runTaskTimer(plugin, 20L, 20L);
 

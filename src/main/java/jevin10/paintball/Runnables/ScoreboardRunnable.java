@@ -8,6 +8,9 @@ public class ScoreboardRunnable extends BukkitRunnable {
 
     Player p;
 
+    /**
+     * @param p A player to be shown the scoreboard to
+     */
     public ScoreboardRunnable(Player p) {
         this.p = p;
     }

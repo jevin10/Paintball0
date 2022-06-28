@@ -8,6 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
 public class LobbyScoreboard {
+    /**
+     *
+     * @param p A player (in the lobby) to whom a scoreboard with the correct objective shall be shown
+     */
     public static void newTest(Player p) {
 
         // Check if player is in pbWorld

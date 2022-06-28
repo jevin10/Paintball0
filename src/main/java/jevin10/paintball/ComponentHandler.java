@@ -44,6 +44,11 @@ public class ComponentHandler {
         return tdmComponent;
     }
 
+    /**
+     *
+     * @param p Player that is already instantiated with a team in the GameScoreboard
+     * @return TextComponent corresponding to p's team name
+     */
     public static TextComponent getTeamComponent(Player p) {
         String playerTeam = Paintball.getGameScoreboard().getScoreboard().getPlayerTeam(p).getName();
         switch (playerTeam) {
