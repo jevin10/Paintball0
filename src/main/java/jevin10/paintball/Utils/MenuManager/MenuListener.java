@@ -27,7 +27,7 @@ public class MenuListener implements Listener {
             Menu menu = (Menu) holder;
 
             if (menu.cancelAllClicks()) {
-                e.setCancelled(true); //prevent them from fucking with the inventory
+                e.setCancelled(true);
             }
 
             //Call the handleMenu object which takes the event and processes it

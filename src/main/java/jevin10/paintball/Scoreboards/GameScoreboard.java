@@ -34,6 +34,11 @@ public class GameScoreboard {
         return scoreboard;
     }
 
+    /**
+     *
+     * @param teamName Name of team you want to add player to: takes "no", "red", and "blue"
+     * @param p Name of player to add
+     */
     public void addPlayerToTeam(String teamName, Player p) {
         switch (teamName) {
             case "no" -> noTeam.addPlayer(p);
@@ -42,6 +47,10 @@ public class GameScoreboard {
         }
     }
 
+    /**
+     *
+     * @return Set of online players registered on the main gameScoreboard
+     */
     public Set<Player> getPlayers() {
         Set<Player> playerList = new HashSet<>();
         for (OfflinePlayer p : blueTeam.getPlayers()) {
