@@ -28,7 +28,7 @@ public final class Paintball extends JavaPlugin {
         // Setup MenuManager
         MenuManager.setup(this.getServer(), plugin);
 
-        BukkitTask teamComponentRunnable = new TeamComponentRunnable().runTaskTimer(plugin, 20L, 20L);
+        BukkitTask teamComponentRunnable = new TeamComponentRunnable().runTaskTimer(plugin, 0L, 10L);
 
         BukkitTask lobbyAnnouncerRunnable1 = new LobbyAnnouncerRunnable().runTaskTimer(plugin, 0L, 2L);
 

@@ -32,12 +32,12 @@ public class PaintballCommand implements CommandExecutor {
 
             try {
                 MenuManager.openMenu(ChooseTeamMenu.class, p);
-                BukkitTask updateChooseTeamMenu = new ChooseTeamMenuRunnable(p).runTaskTimer(Paintball.getPlugin(), 20L, 20L);
+                BukkitTask updateChooseTeamMenu = new ChooseTeamMenuRunnable(p).runTaskTimer(Paintball.getPlugin(), 0L, 10L);
             } catch (MenuManagerException | MenuManagerNotSetupException e) {
                 e.printStackTrace();
             }
 
-            BukkitTask teamComponentRunnable = new ScoreboardRunnable(p).runTaskTimer(plugin, 20L, 20L);
+            BukkitTask scoreboardRunnable = new ScoreboardRunnable(p).runTaskTimer(plugin, 0L, 10L);
         }
         return true;
     }
