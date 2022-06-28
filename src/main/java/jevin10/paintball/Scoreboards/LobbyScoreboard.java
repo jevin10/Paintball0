@@ -19,7 +19,7 @@ public class LobbyScoreboard {
         Scoreboard scoreboard = manager.getNewScoreboard();
 
         // DisplaySlot.SIDEBAR
-        Objective lobbyObjective = getLobbyObjective(scoreboard);
+        Objective lobbyObjective = getLobbyObjective(scoreboard, p);
 
         // no DisplaySlot
 
@@ -27,7 +27,7 @@ public class LobbyScoreboard {
 
     }
 
-    public static Objective getLobbyObjective(Scoreboard scoreboard) {
+    public static Objective getLobbyObjective(Scoreboard scoreboard, Player p) {
         Objective lobbyObjective = scoreboard.registerNewObjective("lobby", "dummy", ChatColor.BOLD + "Lobby Info");
         lobbyObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
@@ -46,7 +46,7 @@ public class LobbyScoreboard {
         // Score 6: "[teamScoreDisplay]"
         scoreboard.registerNewTeam("teamScoreDisplay");
         Team teamScoreDisplay = scoreboard.getTeam("teamScoreDisplay");
-        teamScoreDisplay.setSuffix(ComponentHandler.getBlueTeamComponent().toLegacyText());
+        teamScoreDisplay.setSuffix(ComponentHandler.getTeamComponent(p).toLegacyText());
         teamScoreDisplay.addEntry("Team: ");
         lobbyObjective.getScore("Team: ").setScore(6);
 

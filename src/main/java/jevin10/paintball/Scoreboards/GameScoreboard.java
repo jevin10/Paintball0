@@ -34,8 +34,12 @@ public class GameScoreboard {
         return scoreboard;
     }
 
-    public void addPlayerNoTeam(Player p) {
-        noTeam.addPlayer(p);
+    public void addPlayerToTeam(String teamName, Player p) {
+        switch (teamName) {
+            case "no" -> noTeam.addPlayer(p);
+            case "red" -> redTeam.addPlayer(p);
+            case "blue" -> blueTeam.addPlayer(p);
+        }
     }
 
     public Set<Player> getPlayers() {

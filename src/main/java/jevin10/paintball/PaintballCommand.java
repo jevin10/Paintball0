@@ -23,7 +23,7 @@ public class PaintballCommand implements CommandExecutor {
             Paintball.setPbWorld(p.getWorld());
             BossBars.showMyBossBar(p);
 
-            Paintball.getGameScoreboard().addPlayerNoTeam(p);
+            Paintball.getGameScoreboard().addPlayerToTeam("red", p);
 
             BukkitTask teamComponentRunnable = new ScoreboardRunnable(p).runTaskTimer(plugin, 20L, 20L);
         }
