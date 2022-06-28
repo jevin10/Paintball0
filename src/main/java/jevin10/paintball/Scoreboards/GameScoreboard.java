@@ -76,4 +76,33 @@ public class GameScoreboard {
         }
         return playerList;
     }
+
+    /**
+     *
+     * @param teamName name of team you want
+     * @return set of online players on that team
+     */
+    public Set<Player> getTeamPlayers(String teamName) {
+        Set<Player> playerList = new HashSet<>();
+        Team team = null;
+
+        switch (teamName) {
+            case "red" -> team = redTeam;
+            case "blue" -> team = blueTeam;
+            case "no" -> team = noTeam;
+        }
+
+        for (OfflinePlayer p : team.getPlayers()) {
+            if (!p.isOnline()) {
+                continue;
+            }
+            Player player = (Player) p;
+            if (player.getWorld() != Paintball.getPbWorld()) {
+                continue;
+            }
+            playerList.add(player);
+        }
+
+        return playerList;
+    }
 }

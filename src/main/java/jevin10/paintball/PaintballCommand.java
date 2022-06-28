@@ -3,6 +3,7 @@ package jevin10.paintball;
 import jevin10.paintball.Exceptions.MenuManagerException;
 import jevin10.paintball.Exceptions.MenuManagerNotSetupException;
 import jevin10.paintball.Menus.ChooseTeamMenu;
+import jevin10.paintball.Menus.ChooseTeamMenuRunnable;
 import jevin10.paintball.Runnables.LobbyAnnouncerRunnable;
 import jevin10.paintball.Runnables.ScoreboardRunnable;
 import jevin10.paintball.Scoreboards.BossBars;
@@ -27,10 +28,11 @@ public class PaintballCommand implements CommandExecutor {
             Paintball.setPbWorld(p.getWorld());
             BossBars.showMyBossBar(p);
 
-            Paintball.getGameScoreboard().addPlayerToTeam("red", p);
+            Paintball.getGameScoreboard().addPlayerToTeam("no", p);
 
             try {
                 MenuManager.openMenu(ChooseTeamMenu.class, p);
+                BukkitTask updateChooseTeamMenu = new ChooseTeamMenuRunnable(p).runTaskTimer(Paintball.getPlugin(), 20L, 20L);
             } catch (MenuManagerException | MenuManagerNotSetupException e) {
                 e.printStackTrace();
             }
