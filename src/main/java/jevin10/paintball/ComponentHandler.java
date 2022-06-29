@@ -11,7 +11,7 @@ public class ComponentHandler {
     static int colorFrame = 0;
     static TextComponent blueTeamComponent;
     static TextComponent redTeamComponent;
-    static TextComponent tdmComponent = ColorTranslator.translateColorCodesToTextComponent("&#22fd5fT&#30f057D&#3ee24eM");
+    static TextComponent tdmComponent = ColorTranslator.translateColorCodesToTextComponent("&#fb0000TDM");
 
     public static TextComponent getBlueTeamComponent() {
         return blueTeamComponent;

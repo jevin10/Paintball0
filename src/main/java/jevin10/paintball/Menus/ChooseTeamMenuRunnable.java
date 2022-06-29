@@ -26,8 +26,8 @@ public class ChooseTeamMenuRunnable extends BukkitRunnable {
             return;
         }
 
-        ItemStack chooseTeamBlue = makeItem(Material.BLUE_WOOL, ComponentHandler.getBlueTeamComponent().toLegacyText(), "&#ffffffJoin blue team!", "&#ffffffPlayers: " + Paintball.getGameScoreboard().getTeamPlayers("blue").size());
-        ItemStack chooseTeamRed = makeItem(Material.RED_WOOL, ComponentHandler.getRedTeamComponent().toLegacyText(), "&#ffffffJoin red team!", "&#ffffffPlayers: " + Paintball.getGameScoreboard().getTeamPlayers("red").size());
+        ItemStack chooseTeamBlue = makeItem(Material.BLUE_WOOL, ComponentHandler.getBlueTeamComponent().toLegacyText(), "&#ffffffJoin blue team!", " ", "&#ffffff☻ " + Paintball.getGameScoreboard().getTeamPlayers("blue").size());
+        ItemStack chooseTeamRed = makeItem(Material.RED_WOOL, ComponentHandler.getRedTeamComponent().toLegacyText(), "&#ffffffJoin red team!", " ", "&#ffffff☻ " + Paintball.getGameScoreboard().getTeamPlayers("red").size());
 
         p.getOpenInventory().setItem(3, chooseTeamBlue);
         p.getOpenInventory().setItem(5, chooseTeamRed);

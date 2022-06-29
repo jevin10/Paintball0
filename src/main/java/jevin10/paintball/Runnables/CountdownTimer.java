@@ -48,7 +48,7 @@ public class CountdownTimer {
         int minutes = Math.floorDiv(time, 60);
         int seconds = time%60;
         if (Paintball.getGameScoreboard().getGameInstance().contains("arena")) {
-            return ChatColor.AQUA + "IN SESSION";
+            return ChatColor.AQUA + "IN-GAME";
         }
         if (seconds < 10) {
             return minutes + ":0" + seconds;
