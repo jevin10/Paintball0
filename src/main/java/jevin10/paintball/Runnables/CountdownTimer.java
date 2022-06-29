@@ -39,7 +39,23 @@ public class CountdownTimer {
         Bukkit.getScheduler().cancelTask(taskID);
     }
 
-    public static int getTime() {
-        return time;
+    public static String getCountdownTimer() {
+        int minutes = Math.floorDiv(time, 60);
+        int seconds = time%60;
+        if (seconds < 10) {
+            return minutes + ":0" + seconds;
+        } else {
+            return minutes + ":" + seconds;
+        }
+    }
+
+    public static ChatColor getTimerColor() {
+        if (time >= 60) {
+            return ChatColor.GREEN;
+        } else if (time > 10) {
+            return ChatColor.GOLD;
+        } else {
+            return ChatColor.RED;
+        }
     }
 }

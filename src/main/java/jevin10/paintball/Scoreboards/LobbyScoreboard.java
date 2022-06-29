@@ -64,7 +64,7 @@ public class LobbyScoreboard {
         // Score 3: Game Starts:
         // Score 2: [TimeLeft]
         lobbyObjective.getScore("Game Starts:").setScore(3);
-        lobbyObjective.getScore(String.valueOf(CountdownTimer.getTime())).setScore(2);
+        lobbyObjective.getScore(CountdownTimer.getTimerColor() + CountdownTimer.getCountdownTimer()).setScore(2);
 
         // Score 1: "  " (3 space)
         lobbyObjective.getScore("   ").setScore(1);

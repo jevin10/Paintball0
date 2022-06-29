@@ -31,7 +31,7 @@ public class PaintballCommand implements CommandExecutor {
 
             Paintball.getGameScoreboard().addPlayerToTeam("no", p);
 
-            CountdownTimer.setTimer(5);
+            CountdownTimer.setTimer(120);
             CountdownTimer.startTimer();
 
             try {
