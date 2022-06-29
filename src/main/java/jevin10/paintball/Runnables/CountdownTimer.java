@@ -26,8 +26,9 @@ public class CountdownTimer {
             @Override
             public void run() {
                 if(time == 0) {
-                    Bukkit.broadcastMessage(ChatColor.RED + "Time is up!");
                     stopTimer();
+                    Bukkit.broadcastMessage(ChatColor.RED + "Time is up!");
+                    Paintball.getGameScoreboard().setGameInstance("arena");
                     return;
                 }
                 time--;
@@ -42,6 +43,9 @@ public class CountdownTimer {
     public static String getCountdownTimer() {
         int minutes = Math.floorDiv(time, 60);
         int seconds = time%60;
+        if (Paintball.getGameScoreboard().getGameInstance().contains("arena")) {
+            return ChatColor.AQUA + "IN SESSION";
+        }
         if (seconds < 10) {
             return minutes + ":0" + seconds;
         } else {

@@ -9,6 +9,8 @@ import jevin10.paintball.Runnables.LobbyAnnouncerRunnable;
 import jevin10.paintball.Runnables.ScoreboardRunnable;
 import jevin10.paintball.Scoreboards.BossBars;
 import jevin10.paintball.Utils.MenuManager.MenuManager;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,13 +27,20 @@ public class PaintballCommand implements CommandExecutor {
         if (sender instanceof Player p) {
             // toLegacyText is IMPORTANT for scoreboards.
 
+            if (!Paintball.getGameScoreboard().getGameInstance().equals("null")) {
+                p.sendMessage(ChatColor.RED + "A game of Paintball already exists!");
+                return true;
+            }
+
             // Register pbWorld as the game world
             Paintball.setPbWorld(p.getWorld());
+            Paintball.getGameScoreboard().setGameInstance("lobby");
+
             BossBars.showMyBossBar(p);
 
             Paintball.getGameScoreboard().addPlayerToTeam("no", p);
 
-            CountdownTimer.setTimer(120);
+            CountdownTimer.setTimer(30);
             CountdownTimer.startTimer();
 
             try {

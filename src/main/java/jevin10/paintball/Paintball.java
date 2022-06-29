@@ -1,10 +1,14 @@
 package jevin10.paintball;
 
+import jevin10.paintball.Listeners.PlayerChangedWorldListener;
+import jevin10.paintball.Listeners.PlayerJoinListener;
 import jevin10.paintball.Utils.MenuManager.MenuManager;
 import jevin10.paintball.Runnables.LobbyAnnouncerRunnable;
 import jevin10.paintball.Runnables.TeamComponentRunnable;
 import jevin10.paintball.Scoreboards.GameScoreboard;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
@@ -24,6 +28,10 @@ public final class Paintball extends JavaPlugin {
 
         // Plugin startup logic
         getCommand("paintball").setExecutor(new PaintballCommand());
+
+
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerChangedWorldListener(), this);
 
         // Setup MenuManager
         MenuManager.setup(this.getServer(), plugin);

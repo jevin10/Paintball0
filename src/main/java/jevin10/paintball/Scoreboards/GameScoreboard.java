@@ -17,7 +17,7 @@ public class GameScoreboard {
     Team noTeam = null;
     int blueTeamKills = 0;
     int redTeamKills = 0;
-    String gameInstance = "lobby";
+    String gameInstance = "null";
 
     public GameScoreboard() {
         Objective killsObjective = scoreboard.registerNewObjective("kills", "dummy", "kills");
