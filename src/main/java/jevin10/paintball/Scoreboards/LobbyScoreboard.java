@@ -2,6 +2,7 @@ package jevin10.paintball.Scoreboards;
 
 import jevin10.paintball.ComponentHandler;
 import jevin10.paintball.Paintball;
+import jevin10.paintball.Runnables.CountdownTimer;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -63,7 +64,7 @@ public class LobbyScoreboard {
         // Score 3: Game Starts:
         // Score 2: [TimeLeft]
         lobbyObjective.getScore("Game Starts:").setScore(3);
-        lobbyObjective.getScore("null").setScore(2);
+        lobbyObjective.getScore(String.valueOf(CountdownTimer.getTime())).setScore(2);
 
         // Score 1: "  " (3 space)
         lobbyObjective.getScore("   ").setScore(1);
