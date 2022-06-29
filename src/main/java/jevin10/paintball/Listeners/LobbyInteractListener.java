@@ -30,7 +30,9 @@ public class LobbyInteractListener implements Listener {
         if (!Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
             return;
         }
-
+        if (event.getItem() == null) {
+            return;
+        }
         if (event.getItem().getType() == Material.COMPASS) {
             MenuManager.openMenu(ChooseTeamMenu.class, event.getPlayer());
         } else if (event.getItem().getType() == Material.BOOK) {
@@ -43,7 +45,7 @@ public class LobbyInteractListener implements Listener {
      * @param event The click event
      */
     @EventHandler
-    public void onPlayerClick(InventoryClickEvent event, InventoryPickupItemEvent event2) {
+    public void onPlayerClick(InventoryClickEvent event) {
         if (Paintball.getPbWorld() == null) {
             return;
         }
@@ -56,7 +58,6 @@ public class LobbyInteractListener implements Listener {
 
         if (event.getCurrentItem().getType() == Material.COMPASS | event.getCurrentItem().getType() == Material.BOOK) {
             event.setCancelled(true);
-            event2.setCancelled(true);
         }
     }
     /**
