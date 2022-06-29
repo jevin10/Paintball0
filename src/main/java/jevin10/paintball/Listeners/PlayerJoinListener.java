@@ -22,7 +22,9 @@ public class PlayerJoinListener implements Listener {
             return;
         }
         if (p.getWorld() == Paintball.getPbWorld()) {
-            LobbyBossBar.showMyBossBar(p);
+            if (Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
+                LobbyBossBar.showMyBossBar(p);
+            }
             if(!Paintball.getGameScoreboard().getPlayers().contains(p)) {
                 Paintball.getGameScoreboard().addPlayerToTeam("no", p);
             }

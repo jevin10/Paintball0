@@ -4,6 +4,7 @@ import jevin10.paintball.Runnables.BossBars.ArenaBossBarRunnable;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -16,8 +17,8 @@ public class ArenaBossBar {
     private static @Nullable BossBar activeBar;
     public static void showMyBossBar(final @NonNull Audience target) {
         final Component gameMode = Component.text("Gamemode: Team Deathmatch");
-        final Component nameBlue = Component.text("Blue Team Score: Null");
-        final Component nameRed = Component.text("Red Team Score: Null");
+        final Component nameBlue = Component.text("Blue Score: ");
+        final Component nameRed = Component.text("Red Score: ");
         final TextColor[] blueNames = getBlueNames();
         final TextColor[] redNames = getRedNames();
 
@@ -28,8 +29,8 @@ public class ArenaBossBar {
 
         for (int i = 0; i < 4; i++) {
             gameModeBar[i] = BossBar.bossBar(gameMode, 1F, BossBar.Color.GREEN, BossBar.Overlay.PROGRESS);
-            blueScoreBar[i] = BossBar.bossBar(nameBlue.color(blueNames[i]), 1F, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
-            redScoreBar[i] = BossBar.bossBar(nameRed.color(redNames[i]), 1F, BossBar.Color.RED, BossBar.Overlay.PROGRESS);
+            blueScoreBar[i] = BossBar.bossBar(nameBlue.append(Component.text("Null").color(blueNames[i])), 1F, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
+            redScoreBar[i] = BossBar.bossBar(nameRed.append(Component.text("Null").color(redNames[i])), 1F, BossBar.Color.RED, BossBar.Overlay.PROGRESS);
         }
 
         if (ArenaBossBarRunnable.getAnnouncerFrame() < 4) {
