@@ -1,8 +1,10 @@
 package jevin10.paintball.Runnables;
 
 import jevin10.paintball.Paintball;
+import jevin10.paintball.Scoreboards.BossBars.LobbyBossBar;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public class CountdownTimer {
@@ -27,6 +29,9 @@ public class CountdownTimer {
             public void run() {
                 if(time == 0) {
                     stopTimer();
+                    for (Player player : Paintball.getPbWorld().getPlayers()) {
+                        LobbyBossBar.hideActiveBossBar(player);
+                    }
                     Paintball.getGameScoreboard().setGameInstance("arena");
                     return;
                 }

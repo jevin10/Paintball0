@@ -5,12 +5,10 @@ import jevin10.paintball.Exceptions.MenuManagerNotSetupException;
 import jevin10.paintball.Menus.ChooseTeamMenu;
 import jevin10.paintball.Menus.ChooseTeamMenuRunnable;
 import jevin10.paintball.Runnables.CountdownTimer;
-import jevin10.paintball.Runnables.LobbyAnnouncerRunnable;
 import jevin10.paintball.Runnables.ScoreboardRunnable;
-import jevin10.paintball.Scoreboards.BossBars;
+import jevin10.paintball.Scoreboards.BossBars.LobbyBossBar;
 import jevin10.paintball.Utils.MenuManager.MenuManager;
 import jevin10.paintball.Utils.Processes.SetupInventory;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -39,7 +37,7 @@ public class PaintballCommand implements CommandExecutor {
 
             // set up players
             for (Player player : Paintball.getPbWorld().getPlayers()) {
-                BossBars.showMyBossBar(player);
+                LobbyBossBar.showMyBossBar(player);
                 Paintball.getGameScoreboard().addPlayerToTeam("no", player);
                 SetupInventory.lobby(player);
 

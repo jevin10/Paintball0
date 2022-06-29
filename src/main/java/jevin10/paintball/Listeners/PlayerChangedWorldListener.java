@@ -2,13 +2,12 @@ package jevin10.paintball.Listeners;
 
 import jevin10.paintball.Paintball;
 import jevin10.paintball.Runnables.ScoreboardRunnable;
-import jevin10.paintball.Scoreboards.BossBars;
+import jevin10.paintball.Scoreboards.BossBars.LobbyBossBar;
 import jevin10.paintball.Utils.Processes.SetupInventory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitTask;
 
 /**
@@ -25,7 +24,7 @@ public class PlayerChangedWorldListener implements Listener {
             return;
         }
         if (p.getWorld() == Paintball.getPbWorld()) {
-            BossBars.showMyBossBar(p);
+            LobbyBossBar.showMyBossBar(p);
             if(!Paintball.getGameScoreboard().getPlayers().contains(p)) {
                 Paintball.getGameScoreboard().addPlayerToTeam("no", p);
             }

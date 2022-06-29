@@ -1,6 +1,6 @@
-package jevin10.paintball.Scoreboards;
+package jevin10.paintball.Scoreboards.BossBars;
 
-import jevin10.paintball.Runnables.LobbyAnnouncerRunnable;
+import jevin10.paintball.Runnables.BossBars.LobbyBossBarRunnable;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
@@ -8,7 +8,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 import javax.annotation.Nullable;
 
-public class BossBars {
+public class LobbyBossBar {
     private static @Nullable BossBar activeBar;
     public static void showMyBossBar(final @NonNull Audience target) {
         final Component nameA = Component.text("You're Playing Paintball!");
@@ -28,18 +28,18 @@ public class BossBars {
             }
         }
 
-        if (LobbyAnnouncerRunnable.getAnnouncerFrame() < 100) {
+        if (LobbyBossBarRunnable.getAnnouncerFrame() < 100) {
             if (activeBar != null) {
                 hideActiveBossBar(target);
             }
-            target.showBossBar(a[LobbyAnnouncerRunnable.getAnnouncerFrame()]);
-            activeBar = a[LobbyAnnouncerRunnable.getAnnouncerFrame()];
-        } else if (LobbyAnnouncerRunnable.getAnnouncerFrame() < 200) {
+            activeBar = a[LobbyBossBarRunnable.getAnnouncerFrame()];
+            target.showBossBar(activeBar);
+        } else if (LobbyBossBarRunnable.getAnnouncerFrame() < 200) {
             if (activeBar != null) {
                 hideActiveBossBar(target);
             }
-            target.showBossBar(b[LobbyAnnouncerRunnable.getAnnouncerFrame() - 100]);
-            activeBar = b[LobbyAnnouncerRunnable.getAnnouncerFrame() - 100];
+            activeBar = b[LobbyBossBarRunnable.getAnnouncerFrame() - 100];
+            target.showBossBar(activeBar);
         }
     }
 

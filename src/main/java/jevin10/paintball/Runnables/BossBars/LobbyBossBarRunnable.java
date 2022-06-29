@@ -1,19 +1,21 @@
-package jevin10.paintball.Runnables;
+package jevin10.paintball.Runnables.BossBars;
 
 import jevin10.paintball.Paintball;
-import jevin10.paintball.Scoreboards.BossBars;
+import jevin10.paintball.Scoreboards.BossBars.LobbyBossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class LobbyAnnouncerRunnable extends BukkitRunnable {
+public class LobbyBossBarRunnable extends BukkitRunnable {
     static int announcerFrame = 0;
     @Override
     public void run() {
         if (Paintball.getPbWorld() == null) {
             return;
         }
-        for (Player player : Paintball.getPbWorld().getPlayers()) {
-            BossBars.showMyBossBar(player);
+        if (Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
+            for (Player player : Paintball.getPbWorld().getPlayers()) {
+                LobbyBossBar.showMyBossBar(player);
+            }
         }
         incrementAnnouncerFrame();
     }
