@@ -9,6 +9,7 @@ import jevin10.paintball.Runnables.LobbyAnnouncerRunnable;
 import jevin10.paintball.Runnables.ScoreboardRunnable;
 import jevin10.paintball.Scoreboards.BossBars;
 import jevin10.paintball.Utils.MenuManager.MenuManager;
+import jevin10.paintball.Utils.Processes.SetupInventory;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -36,21 +37,25 @@ public class PaintballCommand implements CommandExecutor {
             Paintball.setPbWorld(p.getWorld());
             Paintball.getGameScoreboard().setGameInstance("lobby");
 
-            BossBars.showMyBossBar(p);
+            // set up players
+            for (Player player : Paintball.getPbWorld().getPlayers()) {
+                BossBars.showMyBossBar(player);
+                Paintball.getGameScoreboard().addPlayerToTeam("no", player);
+                SetupInventory.lobby(player);
 
-            Paintball.getGameScoreboard().addPlayerToTeam("no", p);
+                try {
+                    MenuManager.openMenu(ChooseTeamMenu.class, player);
+                    BukkitTask updateChooseTeamMenu = new ChooseTeamMenuRunnable(player).runTaskTimer(Paintball.getPlugin(), 0L, 10L);
+                } catch (MenuManagerException | MenuManagerNotSetupException e) {
+                    e.printStackTrace();
+                }
+
+                BukkitTask scoreboardRunnable = new ScoreboardRunnable(player).runTaskTimer(plugin, 0L, 10L);
+            }
 
             CountdownTimer.setTimer(30);
             CountdownTimer.startTimer();
 
-            try {
-                MenuManager.openMenu(ChooseTeamMenu.class, p);
-                BukkitTask updateChooseTeamMenu = new ChooseTeamMenuRunnable(p).runTaskTimer(Paintball.getPlugin(), 0L, 10L);
-            } catch (MenuManagerException | MenuManagerNotSetupException e) {
-                e.printStackTrace();
-            }
-
-            BukkitTask scoreboardRunnable = new ScoreboardRunnable(p).runTaskTimer(plugin, 0L, 10L);
         }
         return true;
     }

@@ -3,6 +3,7 @@ package jevin10.paintball.Listeners;
 import jevin10.paintball.Paintball;
 import jevin10.paintball.Runnables.ScoreboardRunnable;
 import jevin10.paintball.Scoreboards.BossBars;
+import jevin10.paintball.Utils.Processes.SetupInventory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,6 +25,9 @@ public class PlayerJoinListener implements Listener {
             BossBars.showMyBossBar(p);
             if(!Paintball.getGameScoreboard().getPlayers().contains(p)) {
                 Paintball.getGameScoreboard().addPlayerToTeam("no", p);
+            }
+            if (Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
+                SetupInventory.lobby(p);
             }
             BukkitTask scoreboardRunnable = new ScoreboardRunnable(p).runTaskTimer(Paintball.getPlugin(), 0L, 10L);
         }
