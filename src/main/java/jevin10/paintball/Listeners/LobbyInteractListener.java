@@ -21,6 +21,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class LobbyInteractListener implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) throws MenuManagerException, MenuManagerNotSetupException {
+        // return statements
         if (Paintball.getPbWorld() == null) {
             return;
         }
@@ -33,6 +34,7 @@ public class LobbyInteractListener implements Listener {
         if (event.getItem() == null) {
             return;
         }
+
         if (event.getItem().getType() == Material.COMPASS) {
             MenuManager.openMenu(ChooseTeamMenu.class, event.getPlayer());
         } else if (event.getItem().getType() == Material.BOOK) {
@@ -46,6 +48,7 @@ public class LobbyInteractListener implements Listener {
      */
     @EventHandler
     public void onPlayerClick(InventoryClickEvent event) {
+        //return statements
         if (Paintball.getPbWorld() == null) {
             return;
         }
@@ -53,6 +56,9 @@ public class LobbyInteractListener implements Listener {
             return;
         }
         if (!Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
+            return;
+        }
+        if (event.getCurrentItem() == null) {
             return;
         }
 
@@ -66,6 +72,7 @@ public class LobbyInteractListener implements Listener {
      */
     @EventHandler
     public void onPlayerClick(InventoryDragEvent event) {
+        // return statements
         if (Paintball.getPbWorld() == null) {
             return;
         }
@@ -73,6 +80,9 @@ public class LobbyInteractListener implements Listener {
             return;
         }
         if (!Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
+            return;
+        }
+        if (event.getCursor() == null) {
             return;
         }
 
