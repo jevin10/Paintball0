@@ -27,7 +27,6 @@ public class CountdownTimer {
             public void run() {
                 if(time == 0) {
                     stopTimer();
-                    Bukkit.broadcastMessage(ChatColor.RED + "Time is up!");
                     Paintball.getGameScoreboard().setGameInstance("arena");
                     return;
                 }
