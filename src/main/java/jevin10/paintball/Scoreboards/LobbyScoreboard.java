@@ -25,7 +25,12 @@ public class LobbyScoreboard {
         Scoreboard scoreboard = manager.getNewScoreboard();
 
         // DisplaySlot.SIDEBAR
-        Objective lobbyObjective = getLobbyObjective(scoreboard, p);
+        if (Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
+            Objective lobbyObjective = getLobbyObjective(scoreboard, p);
+        } else if (Paintball.getGameScoreboard().getGameInstance().equals("arena")) {
+            Objective arenaObjective = getArenaObjective(scoreboard, p);
+        }
+
 
         // no DisplaySlot
 
@@ -62,13 +67,41 @@ public class LobbyScoreboard {
         // Score 3: Game Starts:
         lobbyObjective.getScore("⌛  " + CountdownTimer.getTimerColor() + CountdownTimer.getCountdownTimer()).setScore(3);
 
+        lobbyObjective.getScore("  ").setScore(2);
+
         return lobbyObjective;
     }
 
-    public static Objective getGameObjective(Scoreboard scoreboard) {
-        Objective gameObjective = scoreboard.registerNewObjective("lobby", "dummy", "Game Objective");
+    public static Objective getArenaObjective(Scoreboard scoreboard, Player p) {
+        Objective arenaObjective = scoreboard.registerNewObjective("tdm", "dummy", ChatColor.BOLD + "TDM         ");
+        arenaObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-        return gameObjective;
+        arenaObjective.getScore(" ").setScore(7);
+
+        scoreboard.registerNewTeam("arenaScoreDisplay");
+        Team gameModeDisplay = scoreboard.getTeam("arenaScoreDisplay");
+        gameModeDisplay.setSuffix("0:0");
+        gameModeDisplay.addEntry("⚑  ");
+        arenaObjective.getScore("⚑  ").setScore(6);
+
+        // Score 5: "[teamScoreDisplay]"
+        scoreboard.registerNewTeam("teamScoreDisplay");
+        Team teamScoreDisplay = scoreboard.getTeam("teamScoreDisplay");
+        teamScoreDisplay.setSuffix(ComponentHandler.getTeamComponent(p).toLegacyText());
+        teamScoreDisplay.addEntry("⛨  ");
+        arenaObjective.getScore("⛨  ").setScore(5);
+
+        // Score 4: Game Starts:
+        arenaObjective.getScore("⌛  " + "null").setScore(4);
+
+        arenaObjective.getScore("  ").setScore(3);
+
+        arenaObjective.getScore("⚔  0").setScore(2);
+        arenaObjective.getScore("©  0").setScore(1);
+
+        arenaObjective.getScore("   ").setScore(0);
+
+        return arenaObjective;
     }
 
 
