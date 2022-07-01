@@ -28,7 +28,39 @@ public class PaintballCommand implements CommandExecutor {
         if (sender instanceof Player p) {
             // toLegacyText is IMPORTANT for scoreboards.
 
-            if (args[0] == "setlobby") {
+            if (args.length == 0) {
+                if (!Paintball.getGameScoreboard().getGameInstance().equals("null")) {
+                    p.sendMessage(ChatColor.RED + "A game of Paintball already exists!");
+                    return true;
+                }
+
+                // Register pbWorld as the game world
+                Paintball.setPbWorld(p.getWorld());
+                Paintball.getGameScoreboard().setGameInstance("lobby");
+
+                // set up players
+                for (Player player : Paintball.getPbWorld().getPlayers()) {
+                    LobbyBossBar.showMyBossBar(player);
+                    Paintball.getGameScoreboard().addPlayerToTeam("no", player);
+                    SetupInventory.lobby(player);
+
+                    try {
+                        MenuManager.openMenu(ChooseTeamMenu.class, player);
+                        BukkitTask updateChooseTeamMenu = new ChooseTeamMenuRunnable(player).runTaskTimer(Paintball.getPlugin(), 0L, 10L);
+                    } catch (MenuManagerException | MenuManagerNotSetupException e) {
+                        e.printStackTrace();
+                    }
+
+                    BukkitTask scoreboardRunnable = new ScoreboardRunnable(player).runTaskTimer(plugin, 0L, 10L);
+                }
+
+                CountdownTimer.setTimer(30);
+                CountdownTimer.startTimer();
+
+                return true;
+            }
+
+            if (args[0].equals("setLobby")) {
                 Location location = p.getLocation();
                 if (Paintball.getPlugin().getConfig().getLocation("lobbyLocation") != null) {
                     p.sendMessage(Component.text("Overriding previous location..."));
@@ -36,35 +68,9 @@ public class PaintballCommand implements CommandExecutor {
                 Paintball.getPlugin().getConfig().set("lobbyLocation", location);
                 Paintball.getPlugin().saveConfig();
                 p.sendMessage(Component.text("Location set!"));
-            }
-
-            if (!Paintball.getGameScoreboard().getGameInstance().equals("null")) {
-                p.sendMessage(ChatColor.RED + "A game of Paintball already exists!");
                 return true;
             }
 
-            // Register pbWorld as the game world
-            Paintball.setPbWorld(p.getWorld());
-            Paintball.getGameScoreboard().setGameInstance("lobby");
-
-            // set up players
-            for (Player player : Paintball.getPbWorld().getPlayers()) {
-                LobbyBossBar.showMyBossBar(player);
-                Paintball.getGameScoreboard().addPlayerToTeam("no", player);
-                SetupInventory.lobby(player);
-
-                try {
-                    MenuManager.openMenu(ChooseTeamMenu.class, player);
-                    BukkitTask updateChooseTeamMenu = new ChooseTeamMenuRunnable(player).runTaskTimer(Paintball.getPlugin(), 0L, 10L);
-                } catch (MenuManagerException | MenuManagerNotSetupException e) {
-                    e.printStackTrace();
-                }
-
-                BukkitTask scoreboardRunnable = new ScoreboardRunnable(player).runTaskTimer(plugin, 0L, 10L);
-            }
-
-            CountdownTimer.setTimer(30);
-            CountdownTimer.startTimer();
 
         }
         return true;
