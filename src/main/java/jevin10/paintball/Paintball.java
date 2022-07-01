@@ -28,6 +28,7 @@ public final class Paintball extends JavaPlugin {
 
         // Plugin startup logic
         getCommand("paintball").setExecutor(new PaintballCommand());
+        getConfig().options().copyDefaults();
 
 
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);

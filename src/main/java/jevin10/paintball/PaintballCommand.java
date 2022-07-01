@@ -9,7 +9,9 @@ import jevin10.paintball.Runnables.ScoreboardRunnable;
 import jevin10.paintball.Scoreboards.BossBars.LobbyBossBar;
 import jevin10.paintball.Utils.MenuManager.MenuManager;
 import jevin10.paintball.Utils.Processes.SetupInventory;
+import net.kyori.adventure.text.Component;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,6 +27,16 @@ public class PaintballCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player p) {
             // toLegacyText is IMPORTANT for scoreboards.
+
+            if (args[0] == "setlobby") {
+                Location location = p.getLocation();
+                if (Paintball.getPlugin().getConfig().getLocation("lobbyLocation") != null) {
+                    p.sendMessage(Component.text("Overriding previous location..."));
+                }
+                Paintball.getPlugin().getConfig().set("lobbyLocation", location);
+                Paintball.getPlugin().saveConfig();
+                p.sendMessage(Component.text("Location set!"));
+            }
 
             if (!Paintball.getGameScoreboard().getGameInstance().equals("null")) {
                 p.sendMessage(ChatColor.RED + "A game of Paintball already exists!");
