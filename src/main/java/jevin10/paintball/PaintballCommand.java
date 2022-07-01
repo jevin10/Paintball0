@@ -33,6 +33,14 @@ public class PaintballCommand implements CommandExecutor {
                     p.sendMessage(ChatColor.RED + "A game of Paintball already exists!");
                     return true;
                 }
+                if (Paintball.getPlugin().getConfig().getLocation("lobbyLocation") == null) {
+                    p.sendMessage(Component.text("Error starting the game: lobby location has not yet been set! Set it with /paintball setLobby"));
+                    return true;
+                }
+                if (Paintball.getPlugin().getConfig().getLocation("arenaLocation") == null) {
+                    p.sendMessage(Component.text("Error starting the game: arena location has not yet been set! Set it with /paintball setArena"));
+                    return true;
+                }
 
                 // Register pbWorld as the game world
                 Paintball.setPbWorld(p.getWorld());
@@ -66,6 +74,17 @@ public class PaintballCommand implements CommandExecutor {
                     p.sendMessage(Component.text("Overriding previous location..."));
                 }
                 Paintball.getPlugin().getConfig().set("lobbyLocation", location);
+                Paintball.getPlugin().saveConfig();
+                p.sendMessage(Component.text("Location set!"));
+                return true;
+            }
+
+            else if (args[0].equals("setArena")) {
+                Location location = p.getLocation();
+                if (Paintball.getPlugin().getConfig().getLocation("arenaLocation") != null) {
+                    p.sendMessage(Component.text("Overriding previous location..."));
+                }
+                Paintball.getPlugin().getConfig().set("arenaLocation", location);
                 Paintball.getPlugin().saveConfig();
                 p.sendMessage(Component.text("Location set!"));
                 return true;

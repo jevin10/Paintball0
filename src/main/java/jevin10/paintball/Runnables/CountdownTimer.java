@@ -2,8 +2,10 @@ package jevin10.paintball.Runnables;
 
 import jevin10.paintball.Paintball;
 import jevin10.paintball.Scoreboards.BossBars.LobbyBossBar;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
@@ -31,8 +33,14 @@ public class CountdownTimer {
                     stopTimer();
                     for (Player player : Paintball.getPbWorld().getPlayers()) {
                         LobbyBossBar.hideActiveBossBar(player);
+
+                        Location location = Paintball.getPlugin().getConfig().getLocation("arenaLocation");
+                        assert location != null : Bukkit.broadcast(Component.text("Set an Arena location with /paintball setArena first!"));
+                        player.teleport(location);
+
                     }
                     Paintball.getGameScoreboard().setGameInstance("arena");
+
                     return;
                 }
                 time--;
