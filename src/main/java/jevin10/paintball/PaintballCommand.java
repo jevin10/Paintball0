@@ -60,7 +60,7 @@ public class PaintballCommand implements CommandExecutor {
                 return true;
             }
 
-            if (args[0].equals("setLobby")) {
+            else if (args[0].equals("setLobby")) {
                 Location location = p.getLocation();
                 if (Paintball.getPlugin().getConfig().getLocation("lobbyLocation") != null) {
                     p.sendMessage(Component.text("Overriding previous location..."));
