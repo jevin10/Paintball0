@@ -4,6 +4,7 @@ import jevin10.paintball.Runnables.BossBars.LobbyBossBarRunnable;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import javax.annotation.Nullable;
@@ -12,7 +13,12 @@ public class LobbyBossBar {
     private static @Nullable BossBar activeBar;
     public static void showMyBossBar(final @NonNull Audience target) {
         final Component nameA = Component.text("You're Playing Paintball!");
-        final Component nameB = Component.text("Learn More: www.metacraft.market");
+        final Component nameB = Component.text("Learn More: ")
+                .append(Component.text("www").color(TextColor.color(0xFFC961)))
+                .append(Component.text(".").color(TextColor.color(0xFDA700)))
+                .append(Component.text("metacraft").color(TextColor.color(0xFFC961)))
+                .append(Component.text(".").color(TextColor.color(0xFDA700)))
+                .append(Component.text("market").color(TextColor.color(0xFFC961)));
 
         final BossBar[]
                 a = new BossBar[100],

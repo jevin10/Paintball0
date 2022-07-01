@@ -16,11 +16,11 @@ import java.util.List;
 public class ArenaBossBar {
     private static @Nullable BossBar activeBar;
     public static void showMyBossBar(final @NonNull Audience target) {
-        final Component gameMode = Component.text("Gamemode: Team Deathmatch");
-        final Component nameBlue = Component.text("Blue Score: ");
-        final Component nameRed = Component.text("Red Score: ");
-        final TextColor[] blueNames = getBlueNames();
-        final TextColor[] redNames = getRedNames();
+        final Component gameMode = Component.text("⚑ Team Deathmatch");
+        final Component nameBlue = Component.text("⚔ Blue Kills: ");
+        final Component nameRed = Component.text("⚔ Red Kills: ");
+        // final TextColor[] blueNames = getBlueNames();
+        // final TextColor[] redNames = getRedNames();
 
         final BossBar[]
                 gameModeBar = new BossBar[4],
@@ -28,9 +28,9 @@ public class ArenaBossBar {
                 redScoreBar = new BossBar[4];
 
         for (int i = 0; i < 4; i++) {
-            gameModeBar[i] = BossBar.bossBar(gameMode, 1F, BossBar.Color.GREEN, BossBar.Overlay.PROGRESS);
-            blueScoreBar[i] = BossBar.bossBar(nameBlue.append(Component.text("Null").color(blueNames[i])), 1F, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
-            redScoreBar[i] = BossBar.bossBar(nameRed.append(Component.text("Null").color(redNames[i])), 1F, BossBar.Color.RED, BossBar.Overlay.PROGRESS);
+            gameModeBar[i] = BossBar.bossBar(gameMode, 1F, BossBar.Color.WHITE, BossBar.Overlay.PROGRESS);
+            blueScoreBar[i] = BossBar.bossBar(nameBlue.append(Component.text("Null").color(TextColor.color(0x006FFF))), 1F, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
+            redScoreBar[i] = BossBar.bossBar(nameRed.append(Component.text("Null").color(TextColor.color(0xFF2D2D))), 1F, BossBar.Color.RED, BossBar.Overlay.PROGRESS);
         }
 
         if (ArenaBossBarRunnable.getAnnouncerFrame() < 4) {
@@ -53,7 +53,7 @@ public class ArenaBossBar {
             target.showBossBar(activeBar);
         }
     }
-
+/*
     public static TextColor[] getBlueNames() {
         List<TextColor> blueList = new ArrayList<>();
         blueList.add(TextColor.color(0x75f5fd));
@@ -81,6 +81,8 @@ public class ArenaBossBar {
         }
         return nameRedList;
     }
+
+ */
 
     public static void hideActiveBossBar(final @NonNull Audience target) {
         target.hideBossBar(activeBar);
