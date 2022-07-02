@@ -1,5 +1,6 @@
 package jevin10.paintball;
 
+import jevin10.paintball.Listeners.ArenaInteractListener;
 import jevin10.paintball.Listeners.LobbyInteractListener;
 import jevin10.paintball.Listeners.PlayerChangedWorldListener;
 import jevin10.paintball.Listeners.PlayerJoinListener;
@@ -34,6 +35,7 @@ public final class Paintball extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerChangedWorldListener(), this);
         getServer().getPluginManager().registerEvents(new LobbyInteractListener(), this);
+        getServer().getPluginManager().registerEvents(new ArenaInteractListener(), this);
 
         // Setup MenuManager
         MenuManager.setup(this.getServer(), plugin);
