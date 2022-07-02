@@ -16,6 +16,9 @@ import org.bukkit.material.MaterialData;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import static org.bukkit.Bukkit.getServer;
+import static org.bukkit.Sound.UI_BUTTON_CLICK;
+
 /**
  * Responsible for setting up the inventory of players on instantiation or when changing states.
  */
@@ -68,5 +71,25 @@ public class SetupInventory {
 
         inventory.setItem(0, paintballGun);
         inventory.setItem(1, ammo);
+    }
+    public static void reloading(Player p) {
+        Inventory inventory = p.getInventory();
+
+        ItemStack reloadingPaintballGun = ItemUtils.makeItem(Material.CARROT_ON_A_STICK, ChatColor.WHITE + "*Reloading*", ChatColor.WHITE + "Reloading Paintball Gun...");
+        ItemStack reloadingAmmo = ItemUtils.makeItem(Material.COPPER_INGOT, ChatColor.WHITE + "*Reloading*", ChatColor.WHITE + "Reloading Paintball Gun...");
+
+        inventory.setItem(0, reloadingPaintballGun);
+        inventory.setItem(1, reloadingAmmo);
+        getServer().getScheduler().scheduleAsyncDelayedTask(Paintball.getPlugin(), new Runnable() {
+            public void run() {
+                p.playSound(p.getLocation(), UI_BUTTON_CLICK, 50, 30);
+                getServer().getScheduler().scheduleAsyncDelayedTask(Paintball.getPlugin(), new Runnable() {
+                    public void run() {
+                        p.playSound(p.getLocation(), UI_BUTTON_CLICK, 50, 5);
+                    }
+                }, 3L);
+                arena(p);
+            }
+        }, 17L);
     }
 }
