@@ -72,6 +72,11 @@ public class SetupInventory {
         inventory.setItem(0, paintballGun);
         inventory.setItem(1, ammo);
     }
+
+    /**
+     * Reloads a players inventory, changing their weapon slot to a reloading gun and their ammo into a copper ingot. (USE ONLY FOR Paintball Gun)
+     * @param p Player to reload
+     */
     public static void reloading(Player p) {
         Inventory inventory = p.getInventory();
 

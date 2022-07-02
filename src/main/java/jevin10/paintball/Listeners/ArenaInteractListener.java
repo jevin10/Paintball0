@@ -1,6 +1,7 @@
 package jevin10.paintball.Listeners;
 
 import jevin10.paintball.Paintball;
+import jevin10.paintball.Runnables.ParticleTrailsRunnable;
 import jevin10.paintball.Utils.AmountModifiers;
 import jevin10.paintball.Utils.Processes.SetupInventory;
 import org.bukkit.Location;
@@ -14,7 +15,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -56,6 +56,7 @@ public class ArenaInteractListener implements Listener {
                 p.playSound(p.getLocation(), ENTITY_SNOWBALL_THROW, 20, 100);
                 Location location = getNewLocation(p);
                 Snowball snowball = p.getWorld().spawn(location, Snowball.class);
+                ParticleTrailsRunnable.getSnowballs().add(snowball);
                 snowball.setShooter(p);
                 snowball.setVelocity(p.getEyeLocation().getDirection().multiply(2.0));
 
