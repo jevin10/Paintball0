@@ -18,6 +18,7 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player p = event.getPlayer();
+        //test if player is in the game world
         if (Paintball.getPbWorld() == null) {
             return;
         }
