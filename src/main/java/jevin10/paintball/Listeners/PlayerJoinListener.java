@@ -18,6 +18,7 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player p = event.getPlayer();
+        // cancel if player is not online
         if (Paintball.getPbWorld() == null) {
             return;
         }

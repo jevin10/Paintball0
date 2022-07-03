@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -15,6 +16,9 @@ import xyz.xenondevs.particle.ParticleEffect;
 import xyz.xenondevs.particle.data.color.RegularColor;
 import xyz.xenondevs.particle.data.texture.ItemTexture;
 
+/**
+ * A listener that handles a snowball the moment it hits a player, making it break.
+ */
 public class PaintballHitListener implements Listener {
     @EventHandler
     public void onSnowballCollideEntity(ProjectileCollideEvent event) {
@@ -33,6 +37,10 @@ public class PaintballHitListener implements Listener {
         }
     }
 
+    /**
+     * The breaking animation of a snowball.
+     * @param event The event that caused the snowball to break.
+     */
     @EventHandler
     public void onSnowballHitBlock(ProjectileHitEvent event) {
         if (!event.getEntity().getType().equals(EntityType.SNOWBALL)) {
@@ -47,6 +55,32 @@ public class PaintballHitListener implements Listener {
             case "red" -> redBreak(location);
             case "blue" -> blueBreak(location);
             case "no" -> noBreak(location);
+        }
+    }
+
+    /**
+     * Handles the snowball damage on projectile hit.
+     * @param event The projectile hit event.
+     */
+    @EventHandler
+    public void onSnowballHitPlayer(ProjectileHitEvent event) {
+        if (!event.getEntity().getType().equals(EntityType.SNOWBALL)) {
+            return;
+        }
+        if (!event.getHitEntity().getType().equals(EntityType.PLAYER)) {
+            return;
+        }
+        Location location = event.getEntity().getLocation();
+        if (!location.getWorld().equals(Paintball.getPbWorld())) {
+            return;
+        }
+        String hitPlayerTeam = Paintball.getGameScoreboard().getScoreboard().getPlayerTeam((OfflinePlayer) event.getEntity().getShooter()).getName();
+        String shooterTeam = Paintball.getGameScoreboard().getScoreboard().getPlayerTeam((OfflinePlayer) event.getHitEntity()).getName();
+        if (hitPlayerTeam.equals(shooterTeam)) {
+            event.setCancelled(true);
+        } else {
+            Player hitPlayer = (Player) event.getHitEntity();
+            hitPlayer.damage(6);
         }
     }
 
