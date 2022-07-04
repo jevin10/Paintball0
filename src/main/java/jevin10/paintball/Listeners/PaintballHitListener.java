@@ -45,6 +45,9 @@ public class PaintballHitListener implements Listener {
      */
     @EventHandler
     public void onSnowballHitBlock(ProjectileHitEvent event) {
+        if (event.getHitEntity() == null) {
+            return;
+        }
         if (!event.getEntity().getType().equals(EntityType.SNOWBALL)) {
             return;
         }
@@ -66,6 +69,9 @@ public class PaintballHitListener implements Listener {
      */
     @EventHandler
     public void onSnowballHitPlayer(ProjectileHitEvent event) {
+        if (event.getHitEntity() == null) {
+            return;
+        }
         if (!event.getEntity().getType().equals(EntityType.SNOWBALL)) {
             return;
         }
@@ -79,14 +85,15 @@ public class PaintballHitListener implements Listener {
         String hitPlayerTeam = Paintball.getGameScoreboard().getScoreboard().getPlayerTeam((OfflinePlayer) event.getEntity().getShooter()).getName();
         String shooterTeam = Paintball.getGameScoreboard().getScoreboard().getPlayerTeam((OfflinePlayer) event.getHitEntity()).getName();
         if (hitPlayerTeam.equals(shooterTeam)) {
+            System.out.println("Same team");
             event.setCancelled(true);
         } else {
             Player hitPlayer = (Player) event.getHitEntity();
             hitPlayer.damage(6);
             if (hitPlayer.getHealth() <= 0) {
                 GameEvents.playerKill(hitPlayer, (Player) event.getEntity().getShooter());
-
             }
+            event.setCancelled(false);
         }
     }
 

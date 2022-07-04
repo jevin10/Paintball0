@@ -1,8 +1,11 @@
 package jevin10.paintball.Listeners;
 
+import jevin10.paintball.Exceptions.MenuManagerException;
+import jevin10.paintball.Exceptions.MenuManagerNotSetupException;
+import jevin10.paintball.Menus.ChooseTeamMenu;
 import jevin10.paintball.Paintball;
 import jevin10.paintball.Runnables.ScoreboardRunnable;
-import jevin10.paintball.Scoreboards.BossBars.LobbyBossBar;
+import jevin10.paintball.Utils.MenuManager.MenuManager;
 import jevin10.paintball.Utils.Processes.SetupInventory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,7 +19,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class PlayerJoinListener implements Listener {
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    public void onPlayerJoin(PlayerJoinEvent event) throws MenuManagerException, MenuManagerNotSetupException {
         Player p = event.getPlayer();
         // cancel if player is not online
         if (Paintball.getPbWorld() == null) {
@@ -24,13 +27,16 @@ public class PlayerJoinListener implements Listener {
         }
         if (p.getWorld() == Paintball.getPbWorld()) {
             if (Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
-                LobbyBossBar.showMyBossBar(p);
+                p.teleport(Paintball.getPlugin().getConfig().getLocation("lobbyLocation"));
+                SetupInventory.lobby(p);
+            }
+            if (Paintball.getGameScoreboard().getGameInstance().equals("arena")) {
+                p.teleport(Paintball.getPlugin().getConfig().getLocation("arenaLocation"));
+                SetupInventory.arena(p);
             }
             if(!Paintball.getGameScoreboard().getPlayers().contains(p)) {
                 Paintball.getGameScoreboard().addPlayerToTeam("no", p);
-            }
-            if (Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
-                SetupInventory.lobby(p);
+                MenuManager.openMenu(ChooseTeamMenu.class, p);
             }
             BukkitTask scoreboardRunnable = new ScoreboardRunnable(p).runTaskTimer(Paintball.getPlugin(), 0L, 10L);
         }

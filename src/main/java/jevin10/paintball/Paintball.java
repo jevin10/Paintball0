@@ -1,11 +1,7 @@
 package jevin10.paintball;
 
 import jevin10.paintball.Listeners.*;
-import jevin10.paintball.Runnables.BossBars.ArenaBossBarRunnable;
-import jevin10.paintball.Runnables.ParticleTrailsRunnable;
-import jevin10.paintball.Runnables.ScoreboardRunnable;
 import jevin10.paintball.Utils.MenuManager.MenuManager;
-import jevin10.paintball.Runnables.BossBars.LobbyBossBarRunnable;
 import jevin10.paintball.Runnables.TeamComponentRunnable;
 import jevin10.paintball.Scoreboards.GameScoreboard;
 import org.bukkit.World;
@@ -36,16 +32,13 @@ public final class Paintball extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new LobbyInteractListener(), this);
         getServer().getPluginManager().registerEvents(new ArenaInteractListener(), this);
         getServer().getPluginManager().registerEvents(new PaintballHitListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerRespawnListener(), this);
 
 
         // Setup MenuManager
         MenuManager.setup(this.getServer(), plugin);
 
         BukkitTask teamComponentRunnable = new TeamComponentRunnable().runTaskTimer(plugin, 0L, 10L);
-
-        BukkitTask lobbyBossBarRunnable = new LobbyBossBarRunnable().runTaskTimer(plugin, 0L, 2L);
-        BukkitTask arenaBossBarRunnable = new ArenaBossBarRunnable().runTaskTimer(plugin, 0L, 20L);
-        BukkitTask particleTrailsRunnable = new ParticleTrailsRunnable().runTaskTimer(plugin, 0L, 1L);
 
     }
 

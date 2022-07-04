@@ -1,7 +1,6 @@
 package jevin10.paintball.Utils.Processes;
 
 import jevin10.paintball.Paintball;
-import jevin10.paintball.Scoreboards.GameScoreboard;
 import jevin10.paintball.Utils.PlayerData;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -22,8 +21,8 @@ public class GameEvents {
     public static void gameWin(String team) {
         Paintball.getGameScoreboard().setGameInstance("end");
         String oppositeTeam = team.equals("blue") ? "red" : "blue";
-        @NotNull Set<OfflinePlayer> winningPlayers = Paintball.getGameScoreboard().getScoreboard().getTeam(team).getPlayers();
-        @NotNull Set<OfflinePlayer> losingPlayers = Paintball.getGameScoreboard().getScoreboard().getTeam(oppositeTeam).getPlayers();
+        Set<OfflinePlayer> winningPlayers = Paintball.getGameScoreboard().getScoreboard().getTeam(team).getPlayers();
+        Set<OfflinePlayer> losingPlayers = Paintball.getGameScoreboard().getScoreboard().getTeam(oppositeTeam).getPlayers();
 
         for (OfflinePlayer p : winningPlayers) {
             if (p.isOnline()) {

@@ -27,8 +27,10 @@ public class ArenaTimer {
             @Override
             public void run() {
                 if(time == 0) {
-                    stopTimer();
                     GameEvents.gameTimeOut();
+                    stopTimer();
+
+                    Paintball.getGameScoreboard().setGameInstance("end");
                     return;
                 }
                 time--;

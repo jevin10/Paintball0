@@ -1,7 +1,6 @@
 package jevin10.paintball.Runnables;
 
 import jevin10.paintball.Paintball;
-import jevin10.paintball.Scoreboards.BossBars.LobbyBossBar;
 import jevin10.paintball.Utils.PlayerData;
 import jevin10.paintball.Utils.Processes.SetupInventory;
 import net.kyori.adventure.text.Component;
@@ -32,9 +31,7 @@ public class LobbyTimer {
             @Override
             public void run() {
                 if(time == 0) {
-                    stopTimer();
-                    for (Player player : Paintball.getPbWorld().getPlayers()) {
-                        LobbyBossBar.hideActiveBossBar(player);
+                    for (Player player : Paintball.getGameScoreboard().getPlayers()) {
 
                         Location location = Paintball.getPlugin().getConfig().getLocation("arenaLocation");
                         assert location != null : Bukkit.broadcast(Component.text("Set an Arena location with /paintball setArena first!"));
@@ -43,6 +40,8 @@ public class LobbyTimer {
                         player.teleport(location);
 
                     }
+                    stopTimer();
+
                     Paintball.getGameScoreboard().setGameInstance("arena");
 
                     ArenaTimer.setTimer(600);

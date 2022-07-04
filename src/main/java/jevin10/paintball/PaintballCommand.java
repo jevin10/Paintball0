@@ -6,7 +6,6 @@ import jevin10.paintball.Menus.ChooseTeamMenu;
 import jevin10.paintball.Menus.ChooseTeamMenuRunnable;
 import jevin10.paintball.Runnables.LobbyTimer;
 import jevin10.paintball.Runnables.ScoreboardRunnable;
-import jevin10.paintball.Scoreboards.BossBars.LobbyBossBar;
 import jevin10.paintball.Utils.MenuManager.MenuManager;
 import jevin10.paintball.Utils.Processes.GameEvents;
 import jevin10.paintball.Utils.Processes.SetupInventory;
@@ -49,7 +48,6 @@ public class PaintballCommand implements CommandExecutor {
 
                 // set up players
                 for (Player player : Paintball.getPbWorld().getPlayers()) {
-                    LobbyBossBar.showMyBossBar(player);
                     Paintball.getGameScoreboard().addPlayerToTeam("no", player);
                     SetupInventory.lobby(player);
 
@@ -63,7 +61,7 @@ public class PaintballCommand implements CommandExecutor {
                     BukkitTask scoreboardRunnable = new ScoreboardRunnable(player).runTaskTimer(plugin, 0L, 10L);
                 }
 
-                LobbyTimer.setTimer(90);
+                LobbyTimer.setTimer(60);
                 LobbyTimer.startTimer();
 
                 return true;
@@ -93,6 +91,35 @@ public class PaintballCommand implements CommandExecutor {
 
             else if (args[0].equals("gameWin")) {
                 GameEvents.gameWin("blue");
+                return true;
+            }
+
+            else if (args[0].equals("addKill")) {
+                GameEvents.playerKill(p, p);
+                return true;
+            }
+
+            else if (args[0].equals("start")) {
+                Paintball.getGameScoreboard().setGameInstance("lobby");
+
+                // set up players
+                for (Player player : Paintball.getPbWorld().getPlayers()) {
+                    Paintball.getGameScoreboard().addPlayerToTeam("no", player);
+                    SetupInventory.lobby(player);
+
+                    try {
+                        MenuManager.openMenu(ChooseTeamMenu.class, player);
+                        BukkitTask updateChooseTeamMenu = new ChooseTeamMenuRunnable(player).runTaskTimer(Paintball.getPlugin(), 0L, 10L);
+                    } catch (MenuManagerException | MenuManagerNotSetupException e) {
+                        e.printStackTrace();
+                    }
+
+                    BukkitTask scoreboardRunnable = new ScoreboardRunnable(player).runTaskTimer(plugin, 0L, 10L);
+                }
+
+                LobbyTimer.setTimer(60);
+                LobbyTimer.startTimer();
+                return true;
             }
 
 
