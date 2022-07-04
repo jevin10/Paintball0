@@ -45,6 +45,14 @@ public class GameEvents {
     }
 
     public static void gameTimeOut() {
+        if (Paintball.getGameScoreboard().getBlueTeamKills() == Paintball.getGameScoreboard().getRedTeamKills()) {
+            for (Player p : Paintball.getGameScoreboard().getPlayers()) {
+                p.sendTitle("GAME DRAW!", ChatColor.BLUE + String.valueOf(Paintball.getGameScoreboard().getBlueTeamKills()) + ChatColor.WHITE + " - " + ChatColor.RED + Paintball.getGameScoreboard().getRedTeamKills(), 10, 128, 10);
+                p.sendMessage(PlayerData.getMVP().getName() + " was the MVP with " + PlayerData.getKills(PlayerData.getMVP()) + " kills!");
+            }
+            Paintball.getGameScoreboard().setGameInstance("end");
+            return;
+        }
         String winningTeam = Paintball.getGameScoreboard().getBlueTeamKills() > Paintball.getGameScoreboard().getRedTeamKills() ? "blue" : "red";
         gameWin(winningTeam);
     }
