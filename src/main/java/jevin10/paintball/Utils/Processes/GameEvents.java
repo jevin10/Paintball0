@@ -2,6 +2,7 @@ package jevin10.paintball.Utils.Processes;
 
 import jevin10.paintball.Paintball;
 import jevin10.paintball.Scoreboards.GameScoreboard;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -23,13 +24,13 @@ public class GameEvents {
 
         for (OfflinePlayer p : winningPlayers) {
             if (p.isOnline()) {
-                p.getPlayer().sendTitle("GAME WON! ", "Null", 10, 128, 10);
+                p.getPlayer().sendTitle("GAME WON! ☺", ChatColor.BLUE + String.valueOf(Paintball.getGameScoreboard().getBlueTeamKills()) + ChatColor.WHITE + " - " + ChatColor.RED + Paintball.getGameScoreboard().getRedTeamKills(), 10, 128, 10);
             }
         }
 
         for (OfflinePlayer p : losingPlayers) {
             if (p.isOnline()) {
-                p.getPlayer().sendTitle("You lost!", "Null", 10, 128, 10);
+                p.getPlayer().sendTitle("GAME LOST! ☹", ChatColor.BLUE + String.valueOf(Paintball.getGameScoreboard().getBlueTeamKills()) + ChatColor.WHITE + " - " + ChatColor.RED + Paintball.getGameScoreboard().getRedTeamKills(), 10, 128, 10);
             }
         }
     }

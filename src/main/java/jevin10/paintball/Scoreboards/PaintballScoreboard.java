@@ -3,13 +3,12 @@ package jevin10.paintball.Scoreboards;
 import jevin10.paintball.ComponentHandler;
 import jevin10.paintball.Paintball;
 import jevin10.paintball.Runnables.CountdownTimer;
-import jevin10.paintball.Utils.ColorTranslator;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
-public class LobbyScoreboard {
+public class PaintballScoreboard {
     /**
      *
      * @param p A player (in the lobby) to whom a scoreboard with the correct objective shall be shown
@@ -80,7 +79,7 @@ public class LobbyScoreboard {
 
         scoreboard.registerNewTeam("arenaScoreDisplay");
         Team gameModeDisplay = scoreboard.getTeam("arenaScoreDisplay");
-        gameModeDisplay.setSuffix(ChatColor.BLUE + String.valueOf(Paintball.getGameScoreboard().getBlueTeamKills()) + " * " + ChatColor.RED + Paintball.getGameScoreboard().getRedTeamKills());
+        gameModeDisplay.setSuffix(ChatColor.BLUE + String.valueOf(Paintball.getGameScoreboard().getBlueTeamKills()) + ChatColor.WHITE + " - " + ChatColor.RED + Paintball.getGameScoreboard().getRedTeamKills());
         gameModeDisplay.addEntry("⚑  ");
         arenaObjective.getScore("⚑  ").setScore(6);
 
