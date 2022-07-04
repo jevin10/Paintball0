@@ -7,6 +7,8 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Set;
+
 public class PlayerData {
     /**
      * Resets the player's data container to a fresh one. (Only affects kills and deaths)
@@ -90,5 +92,18 @@ public class PlayerData {
         return pData.get(new NamespacedKey(Paintball.getPlugin(), "deaths"), PersistentDataType.INTEGER);
     }
 
+    public static Player getMVP() {
+        Set<Player> players = Paintball.getGameScoreboard().getPlayers();
+        Player mvp = null;
+        int mvpKills = 0;
+        for (Player player : players) {
+            int kills = getKills(player);
+            if (kills > mvpKills) {
+                mvp = player;
+                mvpKills = kills;
+            }
+        }
+        return mvp;
+    }
 
 }

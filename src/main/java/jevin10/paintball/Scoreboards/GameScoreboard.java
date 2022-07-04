@@ -1,6 +1,7 @@
 package jevin10.paintball.Scoreboards;
 
 import jevin10.paintball.Paintball;
+import jevin10.paintball.Utils.Processes.GameEvents;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -153,6 +154,11 @@ public class GameScoreboard {
         switch (teamName) {
             case "red" -> redTeamKills++;
             case "blue" -> blueTeamKills++;
+        }
+        if (redTeamKills >= maxKills) {
+            GameEvents.gameWin("red");
+        } else if (blueTeamKills >= maxKills) {
+            GameEvents.gameWin("blue");
         }
     }
 
