@@ -18,6 +18,7 @@ public class GameScoreboard {
     int blueTeamKills = 0;
     int redTeamKills = 0;
     String gameInstance = "null";
+    int maxKills = 10;
 
     public GameScoreboard() {
         Objective killsObjective = scoreboard.registerNewObjective("kills", "dummy", "kills");
@@ -118,7 +119,7 @@ public class GameScoreboard {
 
     /**
      *
-     * @return instance of the game as a String, "lobby" or "arena"
+     * @return instance of the game as a String, "lobby" or "arena" or "end"
      */
     public String getGameInstance() {
         return gameInstance;
@@ -126,7 +127,7 @@ public class GameScoreboard {
 
     /**
      *
-     * @param gameInstance sets the instance of the game, make it either "lobby" or "arena"
+     * @param gameInstance sets the instance of the game, make it either "lobby" or "arena" or "end"
      */
     public void setGameInstance(String gameInstance) {
         this.gameInstance = gameInstance;
@@ -153,5 +154,9 @@ public class GameScoreboard {
             case "red" -> redTeamKills++;
             case "blue" -> blueTeamKills++;
         }
+    }
+
+    public int getMaxKills() {
+        return maxKills;
     }
 }

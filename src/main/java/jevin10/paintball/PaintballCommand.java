@@ -8,6 +8,7 @@ import jevin10.paintball.Runnables.CountdownTimer;
 import jevin10.paintball.Runnables.ScoreboardRunnable;
 import jevin10.paintball.Scoreboards.BossBars.LobbyBossBar;
 import jevin10.paintball.Utils.MenuManager.MenuManager;
+import jevin10.paintball.Utils.Processes.GameEvents;
 import jevin10.paintball.Utils.Processes.SetupInventory;
 import net.kyori.adventure.text.Component;
 import org.bukkit.ChatColor;
@@ -88,6 +89,10 @@ public class PaintballCommand implements CommandExecutor {
                 Paintball.getPlugin().saveConfig();
                 p.sendMessage(Component.text("Location set!"));
                 return true;
+            }
+
+            else if (args[0].equals("gameWin")) {
+                GameEvents.gameWin("blue");
             }
 
 

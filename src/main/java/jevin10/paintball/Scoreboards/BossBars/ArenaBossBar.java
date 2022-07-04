@@ -1,5 +1,6 @@
 package jevin10.paintball.Scoreboards.BossBars;
 
+import jevin10.paintball.Paintball;
 import jevin10.paintball.Runnables.BossBars.ArenaBossBarRunnable;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
@@ -22,6 +23,9 @@ public class ArenaBossBar {
         // final TextColor[] blueNames = getBlueNames();
         // final TextColor[] redNames = getRedNames();
 
+        Float blueProgress = (float) (Paintball.getGameScoreboard().getBlueTeamKills() / Paintball.getGameScoreboard().getMaxKills());
+        Float redProgress = (float) (Paintball.getGameScoreboard().getRedTeamKills() / Paintball.getGameScoreboard().getMaxKills());
+
         final BossBar[]
                 gameModeBar = new BossBar[4],
                 blueScoreBar = new BossBar[4],
@@ -29,8 +33,8 @@ public class ArenaBossBar {
 
         for (int i = 0; i < 4; i++) {
             gameModeBar[i] = BossBar.bossBar(gameMode, 1F, BossBar.Color.WHITE, BossBar.Overlay.PROGRESS);
-            blueScoreBar[i] = BossBar.bossBar(nameBlue.append(Component.text("Null").color(TextColor.color(0x006FFF))), 1F, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
-            redScoreBar[i] = BossBar.bossBar(nameRed.append(Component.text("Null").color(TextColor.color(0xFF2D2D))), 1F, BossBar.Color.RED, BossBar.Overlay.PROGRESS);
+            blueScoreBar[i] = BossBar.bossBar(nameBlue.append(Component.text("Null").color(TextColor.color(0x006FFF))), blueProgress, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
+            redScoreBar[i] = BossBar.bossBar(nameRed.append(Component.text("Null").color(TextColor.color(0xFF2D2D))), redProgress, BossBar.Color.RED, BossBar.Overlay.PROGRESS);
         }
 
         if (ArenaBossBarRunnable.getAnnouncerFrame() < 4) {
