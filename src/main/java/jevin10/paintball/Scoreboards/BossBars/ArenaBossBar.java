@@ -33,8 +33,8 @@ public class ArenaBossBar {
 
         for (int i = 0; i < 4; i++) {
             gameModeBar[i] = BossBar.bossBar(gameMode, 1F, BossBar.Color.WHITE, BossBar.Overlay.PROGRESS);
-            blueScoreBar[i] = BossBar.bossBar(nameBlue.append(Component.text("Null").color(TextColor.color(0x006FFF))), blueProgress, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
-            redScoreBar[i] = BossBar.bossBar(nameRed.append(Component.text("Null").color(TextColor.color(0xFF2D2D))), redProgress, BossBar.Color.RED, BossBar.Overlay.PROGRESS);
+            blueScoreBar[i] = BossBar.bossBar(nameBlue.append(Component.text(Paintball.getGameScoreboard().getBlueTeamKills()).color(TextColor.color(0x006FFF))), blueProgress, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
+            redScoreBar[i] = BossBar.bossBar(nameRed.append(Component.text(Paintball.getGameScoreboard().getRedTeamKills()).color(TextColor.color(0xFF2D2D))), redProgress, BossBar.Color.RED, BossBar.Overlay.PROGRESS);
         }
 
         if (ArenaBossBarRunnable.getAnnouncerFrame() < 4) {

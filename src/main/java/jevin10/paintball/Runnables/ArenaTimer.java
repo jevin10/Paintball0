@@ -1,23 +1,10 @@
 package jevin10.paintball.Runnables;
 
-import jevin10.paintball.Exceptions.MenuManagerException;
-import jevin10.paintball.Exceptions.MenuManagerNotSetupException;
-import jevin10.paintball.Menus.ChooseTeamMenu;
-import jevin10.paintball.Menus.ChooseTeamMenuRunnable;
 import jevin10.paintball.Paintball;
-import jevin10.paintball.Scoreboards.BossBars.ArenaBossBar;
-import jevin10.paintball.Scoreboards.BossBars.LobbyBossBar;
-import jevin10.paintball.Utils.MenuManager.MenuManager;
-import jevin10.paintball.Utils.PlayerData;
 import jevin10.paintball.Utils.Processes.GameEvents;
-import jevin10.paintball.Utils.Processes.SetupInventory;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
-import org.bukkit.scheduler.BukkitTask;
 
 public class ArenaTimer {
     static int time;
@@ -56,8 +43,8 @@ public class ArenaTimer {
     public static String getCountdownTimer() {
         int minutes = Math.floorDiv(time, 60);
         int seconds = time%60;
-        if (Paintball.getGameScoreboard().getGameInstance().contains("arena")) {
-            return ChatColor.AQUA + "IN-GAME";
+        if (Paintball.getGameScoreboard().getGameInstance().contains("end")) {
+            return ChatColor.AQUA + "GAME-END";
         }
         if (seconds < 10) {
             return minutes + ":0" + seconds;
