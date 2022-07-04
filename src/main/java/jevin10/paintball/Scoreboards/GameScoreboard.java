@@ -131,4 +131,27 @@ public class GameScoreboard {
     public void setGameInstance(String gameInstance) {
         this.gameInstance = gameInstance;
     }
+
+    public int getBlueTeamKills() {
+        return blueTeamKills;
+    }
+
+    public void setBlueTeamKills(int blueTeamKills) {
+        this.blueTeamKills = blueTeamKills;
+    }
+
+    public int getRedTeamKills() {
+        return redTeamKills;
+    }
+
+    public void setRedTeamKills(int redTeamKills) {
+        this.redTeamKills = redTeamKills;
+    }
+
+    public void addKillToTeam(String teamName) {
+        switch (teamName) {
+            case "red" -> redTeamKills++;
+            case "blue" -> blueTeamKills++;
+        }
+    }
 }

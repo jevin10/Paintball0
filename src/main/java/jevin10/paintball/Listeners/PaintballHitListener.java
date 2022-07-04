@@ -2,6 +2,7 @@ package jevin10.paintball.Listeners;
 
 import com.destroystokyo.paper.event.entity.ProjectileCollideEvent;
 import jevin10.paintball.Paintball;
+import jevin10.paintball.Utils.Processes.GameEvents;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -81,6 +82,9 @@ public class PaintballHitListener implements Listener {
         } else {
             Player hitPlayer = (Player) event.getHitEntity();
             hitPlayer.damage(6);
+            if (hitPlayer.getHealth() <= 0) {
+                GameEvents.playerKill(hitPlayer, (Player) event.getEntity().getShooter());
+            }
         }
     }
 

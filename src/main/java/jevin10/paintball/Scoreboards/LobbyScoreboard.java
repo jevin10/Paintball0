@@ -80,7 +80,7 @@ public class LobbyScoreboard {
 
         scoreboard.registerNewTeam("arenaScoreDisplay");
         Team gameModeDisplay = scoreboard.getTeam("arenaScoreDisplay");
-        gameModeDisplay.setSuffix("0:0");
+        gameModeDisplay.setSuffix(ChatColor.BLUE + String.valueOf(Paintball.getGameScoreboard().getBlueTeamKills()) + " * " + ChatColor.RED + Paintball.getGameScoreboard().getRedTeamKills());
         gameModeDisplay.addEntry("⚑  ");
         arenaObjective.getScore("⚑  ").setScore(6);
 
