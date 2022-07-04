@@ -4,7 +4,7 @@ import jevin10.paintball.Exceptions.MenuManagerException;
 import jevin10.paintball.Exceptions.MenuManagerNotSetupException;
 import jevin10.paintball.Menus.ChooseTeamMenu;
 import jevin10.paintball.Menus.ChooseTeamMenuRunnable;
-import jevin10.paintball.Runnables.CountdownTimer;
+import jevin10.paintball.Runnables.LobbyTimer;
 import jevin10.paintball.Runnables.ScoreboardRunnable;
 import jevin10.paintball.Scoreboards.BossBars.LobbyBossBar;
 import jevin10.paintball.Utils.MenuManager.MenuManager;
@@ -63,8 +63,8 @@ public class PaintballCommand implements CommandExecutor {
                     BukkitTask scoreboardRunnable = new ScoreboardRunnable(player).runTaskTimer(plugin, 0L, 10L);
                 }
 
-                CountdownTimer.setTimer(30);
-                CountdownTimer.startTimer();
+                LobbyTimer.setTimer(90);
+                LobbyTimer.startTimer();
 
                 return true;
             }

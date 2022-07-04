@@ -11,7 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
-public class CountdownTimer {
+public class LobbyTimer {
     static int time;
     static int taskID;
 
@@ -44,6 +44,9 @@ public class CountdownTimer {
 
                     }
                     Paintball.getGameScoreboard().setGameInstance("arena");
+
+                    ArenaTimer.setTimer(600);
+                    ArenaTimer.startTimer();
 
                     return;
                 }

@@ -2,7 +2,8 @@ package jevin10.paintball.Scoreboards;
 
 import jevin10.paintball.ComponentHandler;
 import jevin10.paintball.Paintball;
-import jevin10.paintball.Runnables.CountdownTimer;
+import jevin10.paintball.Runnables.ArenaTimer;
+import jevin10.paintball.Runnables.LobbyTimer;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -64,7 +65,7 @@ public class PaintballScoreboard {
         lobbyObjective.getScore("☻  " + Paintball.getGameScoreboard().getPlayers().size()).setScore(4);
 
         // Score 3: Game Starts:
-        lobbyObjective.getScore("⌛  " + CountdownTimer.getTimerColor() + CountdownTimer.getCountdownTimer()).setScore(3);
+        lobbyObjective.getScore("⌛  " + LobbyTimer.getTimerColor() + LobbyTimer.getCountdownTimer()).setScore(3);
 
         lobbyObjective.getScore("  ").setScore(2);
 
@@ -91,7 +92,7 @@ public class PaintballScoreboard {
         arenaObjective.getScore("⛨  ").setScore(5);
 
         // Score 4: Game Starts:
-        arenaObjective.getScore("⌛  " + "null").setScore(4);
+        arenaObjective.getScore("⌛  " + ArenaTimer.getTimerColor() + ArenaTimer.getCountdownTimer()).setScore(4);
 
         arenaObjective.getScore("  ").setScore(3);
 

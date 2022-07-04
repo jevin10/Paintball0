@@ -43,4 +43,9 @@ public class GameEvents {
             }
         }
     }
+
+    public static void gameTimeOut() {
+        String winningTeam = Paintball.getGameScoreboard().getBlueTeamKills() > Paintball.getGameScoreboard().getRedTeamKills() ? "blue" : "red";
+        gameWin(winningTeam);
+    }
 }
