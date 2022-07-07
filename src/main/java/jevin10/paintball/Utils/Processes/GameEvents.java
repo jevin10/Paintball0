@@ -55,7 +55,11 @@ public class GameEvents {
         if (Paintball.getGameScoreboard().getBlueTeamKills() == Paintball.getGameScoreboard().getRedTeamKills()) {
             for (Player p : Paintball.getGameScoreboard().getPlayers()) {
                 p.sendTitle("GAME DRAW!", ChatColor.BLUE + String.valueOf(Paintball.getGameScoreboard().getBlueTeamKills()) + ChatColor.WHITE + " - " + ChatColor.RED + Paintball.getGameScoreboard().getRedTeamKills(), 10, 128, 10);
-                p.sendMessage(PlayerData.getMVP().getName() + " was the MVP with " + PlayerData.getKills(PlayerData.getMVP()) + " kills!");
+                if (PlayerData.getMVP() == null) {
+                    p.sendMessage("No MVP was awarded!");
+                } else {
+                    p.sendMessage(PlayerData.getMVP().getName() + " was the MVP with " + PlayerData.getKills(PlayerData.getMVP()) + " kills!");
+                }
             }
             Paintball.getGameScoreboard().setGameInstance("end");
             return;

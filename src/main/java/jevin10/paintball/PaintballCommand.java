@@ -90,6 +90,11 @@ public class PaintballCommand implements CommandExecutor {
             }
 
             else if (args[0].equals("gameWin")) {
+                if (Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
+                    p.sendMessage(Component.text("Are you trying to break the game? You can't win in the lobby!"));
+                    return true;
+                }
+                p.sendMessage("This should really only be used for testing purposes. If you're not testing, you should probably not use this command.");
                 GameEvents.gameWin("blue");
                 return true;
             }
@@ -100,26 +105,7 @@ public class PaintballCommand implements CommandExecutor {
             }
 
             else if (args[0].equals("start")) {
-                Paintball.getGameScoreboard().setGameInstance("lobby");
-
-                // set up players
-                for (Player player : Paintball.getPbWorld().getPlayers()) {
-                    Paintball.getGameScoreboard().addPlayerToTeam("no", player);
-                    SetupInventory.lobby(player);
-
-                    try {
-                        MenuManager.openMenu(ChooseTeamMenu.class, player);
-                        BukkitTask updateChooseTeamMenu = new ChooseTeamMenuRunnable(player).runTaskTimer(Paintball.getPlugin(), 0L, 10L);
-                    } catch (MenuManagerException | MenuManagerNotSetupException e) {
-                        e.printStackTrace();
-                    }
-
-                    BukkitTask scoreboardRunnable = new ScoreboardRunnable(player).runTaskTimer(plugin, 0L, 10L);
-                }
-
-                LobbyTimer.setTimer(60);
-                LobbyTimer.startTimer();
-                return true;
+                p.sendMessage("Defunct command. Boohoo. You really don't need to use this.");
             }
 
 
