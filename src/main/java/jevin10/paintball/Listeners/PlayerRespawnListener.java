@@ -15,11 +15,16 @@ public class PlayerRespawnListener implements Listener {
             return;
         }
         if (p.getWorld() == Paintball.getPbWorld()) {
-            if (Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
-                p.teleport(Paintball.getPlugin().getConfig().getLocation("lobbyLocation"));
+            if (Paintball.getGameScoreboard().getGameInstance().equals("lobby") || Paintball.getGameScoreboard().getGameInstance().equals("end")) {
+                event.setRespawnLocation(Paintball.getPlugin().getConfig().getLocation("lobbyLocation"));
             }
             else if (Paintball.getGameScoreboard().getGameInstance().equals("arena")) {
-                p.teleport(Paintball.getPlugin().getConfig().getLocation("arenaLocation"));
+                if (Paintball.getGameScoreboard().getPlayers().contains(p)) {
+                    event.setRespawnLocation(Paintball.getPlugin().getConfig().getLocation("arenaLocation"));
+                }
+                else {
+                    event.setRespawnLocation(Paintball.getPlugin().getConfig().getLocation("lobbyLocation"));
+                }
             }
 
         }

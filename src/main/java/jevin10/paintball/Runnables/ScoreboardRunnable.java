@@ -19,13 +19,13 @@ public class ScoreboardRunnable extends BukkitRunnable {
     @Override
     public void run() {
         PaintballScoreboard.newTest(p);
+        p.setFoodLevel(20);
         // cancel if player is not online
         if (!p.isOnline()) {
             this.cancel();
         }
         if (p.getWorld() != Paintball.getPbWorld()) {
             this.cancel();
-
         }
     }
 }

@@ -26,7 +26,7 @@ public class PlayerJoinListener implements Listener {
             return;
         }
         if (p.getWorld() == Paintball.getPbWorld()) {
-            if (Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
+            if (Paintball.getGameScoreboard().getGameInstance().equals("lobby") || Paintball.getGameScoreboard().getGameInstance().equals("end")) {
                 p.teleport(Paintball.getPlugin().getConfig().getLocation("lobbyLocation"));
                 SetupInventory.lobby(p);
             }

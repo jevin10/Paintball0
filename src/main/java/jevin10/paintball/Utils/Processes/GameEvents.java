@@ -1,6 +1,7 @@
 package jevin10.paintball.Utils.Processes;
 
 import jevin10.paintball.Paintball;
+import jevin10.paintball.Runnables.EndTimer;
 import jevin10.paintball.Utils.PlayerData;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -41,6 +42,13 @@ public class GameEvents {
                 onlinePlayer.sendMessage(PlayerData.getMVP().getName() + " was the MVP with " + PlayerData.getKills(PlayerData.getMVP()) + " kills!");
             }
         }
+
+        Paintball.getGameScoreboard().resetScores();
+        Paintball.getGameScoreboard().resetTeams();
+
+
+        EndTimer.setTimer(10);
+        EndTimer.startTimer();
     }
 
     public static void gameTimeOut() {

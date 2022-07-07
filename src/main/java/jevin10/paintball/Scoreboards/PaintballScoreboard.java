@@ -3,6 +3,7 @@ package jevin10.paintball.Scoreboards;
 import jevin10.paintball.ComponentHandler;
 import jevin10.paintball.Paintball;
 import jevin10.paintball.Runnables.ArenaTimer;
+import jevin10.paintball.Runnables.EndTimer;
 import jevin10.paintball.Runnables.LobbyTimer;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -25,10 +26,16 @@ public class PaintballScoreboard {
         Scoreboard scoreboard = manager.getNewScoreboard();
 
         // DisplaySlot.SIDEBAR
-        if (Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
-            Objective lobbyObjective = getLobbyObjective(scoreboard, p);
-        } else if (Paintball.getGameScoreboard().getGameInstance().equals("arena")) {
-            Objective arenaObjective = getArenaObjective(scoreboard, p);
+        switch (Paintball.getGameScoreboard().getGameInstance()) {
+            case "lobby":
+                Objective lobbyObjective = getLobbyObjective(scoreboard, p);
+                break;
+            case "arena":
+                Objective arenaObjective = getArenaObjective(scoreboard, p);
+                break;
+            case "end":
+                Objective endObjective = getEndObjective(scoreboard, p);
+                break;
         }
 
 
@@ -102,6 +109,18 @@ public class PaintballScoreboard {
         arenaObjective.getScore("   ").setScore(0);
 
         return arenaObjective;
+    }
+
+    public static Objective getEndObjective(Scoreboard scoreboard, Player p) {
+        Objective endObjective = scoreboard.registerNewObjective("end", "dummy", ChatColor.BOLD + "END         ");
+        endObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+
+        endObjective.getScore(" ").setScore(7);
+
+        // Score 4: Returning to lobby:
+        endObjective.getScore("⌛  " + EndTimer.getTimerColor() + EndTimer.getCountdownTimer()).setScore(6);
+
+        return endObjective;
     }
 
 

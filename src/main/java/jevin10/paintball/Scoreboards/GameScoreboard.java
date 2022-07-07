@@ -165,4 +165,15 @@ public class GameScoreboard {
     public int getMaxKills() {
         return maxKills;
     }
+
+    public void resetScores() {
+        blueTeamKills = 0;
+        redTeamKills = 0;
+    }
+
+    public void resetTeams() {
+        for (Player p : getPlayers()) {
+            addPlayerToTeam("no", p);
+        }
+    }
 }

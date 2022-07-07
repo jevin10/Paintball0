@@ -4,8 +4,6 @@ import jevin10.paintball.Exceptions.MenuManagerException;
 import jevin10.paintball.Exceptions.MenuManagerNotSetupException;
 import jevin10.paintball.Menus.ChooseTeamMenu;
 import jevin10.paintball.Paintball;
-import jevin10.paintball.Utils.ItemUtils;
-import jevin10.paintball.Utils.MenuManager.Menu;
 import jevin10.paintball.Utils.MenuManager.MenuManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -14,9 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
-import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * All listeners pertaining to the lobby.

@@ -32,7 +32,10 @@ public class LobbyTimer {
             public void run() {
                 if(time == 0) {
                     for (Player player : Paintball.getGameScoreboard().getPlayers()) {
-
+                        if (!Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
+                            stopTimer();
+                            return;
+                        }
                         Location location = Paintball.getPlugin().getConfig().getLocation("arenaLocation");
                         assert location != null : Bukkit.broadcast(Component.text("Set an Arena location with /paintball setArena first!"));
                         SetupInventory.arena(player);
@@ -55,6 +58,7 @@ public class LobbyTimer {
     }
 
     public static void stopTimer() {
+        System.out.println("Stopping Lobby Timer");
         Bukkit.getScheduler().cancelTask(taskID);
     }
 
