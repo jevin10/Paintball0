@@ -31,8 +31,10 @@ public class PlayerJoinListener implements Listener {
                 SetupInventory.lobby(p);
             }
             if (Paintball.getGameScoreboard().getGameInstance().equals("arena")) {
-                p.teleport(Paintball.getPlugin().getConfig().getLocation("arenaLocation"));
-                SetupInventory.arena(p);
+                Paintball.getGameScoreboard().addPlayerToTeam("no", p);
+                p.teleport(Paintball.getPlugin().getConfig().getLocation("lobbyLocation"));
+                MenuManager.openMenu(ChooseTeamMenu.class, p);
+                SetupInventory.lobby(p);
             }
             if(!Paintball.getGameScoreboard().getPlayers().contains(p)) {
                 Paintball.getGameScoreboard().addPlayerToTeam("no", p);
