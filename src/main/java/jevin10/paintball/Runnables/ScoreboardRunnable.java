@@ -4,8 +4,11 @@ import jevin10.paintball.BossBars.ArenaBossBar;
 import jevin10.paintball.BossBars.LobbyBossBar;
 import jevin10.paintball.Paintball;
 import jevin10.paintball.Scoreboards.PaintballScoreboard;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.Objects;
 
 public class ScoreboardRunnable extends BukkitRunnable {
 
@@ -36,7 +39,9 @@ public class ScoreboardRunnable extends BukkitRunnable {
                 lobbyBossBar.addPlayer(p);
             }
 
-            p.setHealth(20);
+            if (p.getHealth() > 0) {
+                p.setHealth(Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
+            }
         }
         if (Paintball.getGameScoreboard().getGameInstance().equals("arena")) {
             LobbyBossBar lobbyBossBar = LobbyBossBar.getLobbyBossBarList().get(LobbyBossBar.getLobbyBossBarList().size() - 1);

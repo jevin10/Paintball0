@@ -16,6 +16,11 @@ public class ArenaTimer {
 
     public ArenaTimer(int time) {
         this.time = time;
+        if (!arenaTimers.isEmpty()) {
+            for (ArenaTimer arenaTimer : arenaTimers) {
+                arenaTimer.stopTimer();
+            }
+        }
         arenaTimers.add(this);
     }
 
@@ -46,7 +51,6 @@ public class ArenaTimer {
     }
 
     public void stopTimer() {
-        System.out.println("Stopping Arena Timer");
         Bukkit.getScheduler().cancelTask(taskID);
     }
 

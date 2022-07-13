@@ -15,6 +15,20 @@ public class PlayerRespawnListener implements Listener {
         if (Paintball.getPbWorld() == null) {
             return;
         }
+        if (Paintball.getGameScoreboard().getPlayers().contains(p)) {
+            if (Paintball.getGameScoreboard().getGameInstance().equals("lobby") | Paintball.getGameScoreboard().getGameInstance().equals("end")) {
+                event.setRespawnLocation(Paintball.getPlugin().getConfig().getLocation("lobbyLocation"));
+            }
+            else if (Paintball.getGameScoreboard().getGameInstance().equals("arena")) {
+                String team = Paintball.getGameScoreboard().getScoreboard().getEntityTeam(p).getName();
+                switch (team) {
+                    case "red" -> event.setRespawnLocation(new Location(Paintball.getPbWorld(), 3366.0, -60.0, 205.0, 90, -4));
+                    case "blue" -> event.setRespawnLocation(new Location(Paintball.getPbWorld(),  3307.0, -60.0, 254.0, -90, -4));
+                    case "no" -> event.setRespawnLocation(Paintball.getPlugin().getConfig().getLocation("lobbyLocation"));
+                }
+            }
+        }
+        /*
         if (p.getWorld() == Paintball.getPbWorld()) {
             if (!Paintball.getGameScoreboard().getPlayers().contains(p)) {
                 Paintball.getGameScoreboard().addPlayerToTeam("no", p);
@@ -32,6 +46,8 @@ public class PlayerRespawnListener implements Listener {
             }
 
         }
+
+         */
     }
 }
 

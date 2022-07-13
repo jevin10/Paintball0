@@ -20,6 +20,11 @@ public class EndTimer {
 
     public EndTimer(int time) {
         this.time = time;
+        if (!endTimers.isEmpty()) {
+            for (EndTimer endTimer : endTimers) {
+                endTimer.stopTimer();
+            }
+        }
         endTimers.add(this);
     }
 
@@ -63,7 +68,6 @@ public class EndTimer {
     }
 
     public void stopTimer() {
-        System.out.println("Stopping End Timer");
         Bukkit.getScheduler().cancelTask(taskID);
     }
 

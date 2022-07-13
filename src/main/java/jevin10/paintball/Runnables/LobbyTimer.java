@@ -20,6 +20,11 @@ public class LobbyTimer {
 
     public LobbyTimer(int time) {
         this.time = time;
+        if (!lobbyTimers.isEmpty()) {
+            for (LobbyTimer lobbyTimer : lobbyTimers) {
+                lobbyTimer.stopTimer();
+            }
+        }
         lobbyTimers.add(this);
     }
 
@@ -73,7 +78,6 @@ public class LobbyTimer {
     }
 
     public void stopTimer() {
-        System.out.println("Stopping Lobby Timer");
         Bukkit.getScheduler().cancelTask(taskID);
     }
 
