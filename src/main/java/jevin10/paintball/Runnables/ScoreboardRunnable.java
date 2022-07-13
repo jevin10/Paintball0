@@ -1,5 +1,7 @@
 package jevin10.paintball.Runnables;
 
+import jevin10.paintball.BossBars.ArenaBossBar;
+import jevin10.paintball.BossBars.LobbyBossBar;
 import jevin10.paintball.Paintball;
 import jevin10.paintball.Scoreboards.PaintballScoreboard;
 import org.bukkit.entity.Player;
@@ -18,14 +20,36 @@ public class ScoreboardRunnable extends BukkitRunnable {
 
     @Override
     public void run() {
-        PaintballScoreboard.newTest(p);
-        p.setFoodLevel(20);
         // cancel if player is not online
         if (!p.isOnline()) {
             this.cancel();
         }
         if (p.getWorld() != Paintball.getPbWorld()) {
             this.cancel();
+        }
+        PaintballScoreboard.newTest(p);
+        p.setFoodLevel(20);
+        if (Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
+            LobbyBossBar lobbyBossBar = LobbyBossBar.getLobbyBossBarList().get(LobbyBossBar.getLobbyBossBarList().size() - 1);
+
+            if (!lobbyBossBar.getBossBar().getPlayers().contains(p)) {
+                lobbyBossBar.addPlayer(p);
+            }
+
+            p.setHealth(20);
+        }
+        if (Paintball.getGameScoreboard().getGameInstance().equals("arena")) {
+            LobbyBossBar lobbyBossBar = LobbyBossBar.getLobbyBossBarList().get(LobbyBossBar.getLobbyBossBarList().size() - 1);
+            lobbyBossBar.getBossBar().removeAll();
+
+            ArenaBossBar arenaBossBar = ArenaBossBar.getArenaBossBarList().get(ArenaBossBar.getArenaBossBarList().size() - 1);
+            if (!arenaBossBar.getBossBar().getPlayers().contains(p)) {
+                arenaBossBar.addPlayer(p);
+            }
+        }
+        if (Paintball.getGameScoreboard().getGameInstance().equals("end")) {
+            ArenaBossBar arenaBossBar = ArenaBossBar.getArenaBossBarList().get(ArenaBossBar.getArenaBossBarList().size() - 1);
+            arenaBossBar.getBossBar().removeAll();
         }
     }
 }

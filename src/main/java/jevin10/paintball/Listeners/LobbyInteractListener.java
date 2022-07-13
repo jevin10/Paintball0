@@ -27,9 +27,6 @@ public class LobbyInteractListener implements Listener {
         if (event.getPlayer().getWorld() != Paintball.getPbWorld()) {
             return;
         }
-        if (!Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
-            return;
-        }
         if (event.getItem() == null) {
             return;
         }

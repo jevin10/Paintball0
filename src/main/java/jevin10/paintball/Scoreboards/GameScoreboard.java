@@ -11,8 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GameScoreboard {
-    ScoreboardManager manager = Bukkit.getScoreboardManager();
-    Scoreboard scoreboard = manager.getNewScoreboard();
+    ScoreboardManager manager;
+    Scoreboard scoreboard;
     Team blueTeam = null;
     Team redTeam = null;
     Team noTeam = null;
@@ -22,6 +22,8 @@ public class GameScoreboard {
     int maxKills = 10;
 
     public GameScoreboard() {
+        manager = Bukkit.getScoreboardManager();
+        scoreboard = manager.getNewScoreboard();
         Objective killsObjective = scoreboard.registerNewObjective("kills", "dummy", "kills");
 
         scoreboard.registerNewTeam("blue");
@@ -60,7 +62,7 @@ public class GameScoreboard {
             if (!p.isOnline()) {
                 continue;
             }
-            Player player = (Player) p;
+            Player player = p.getPlayer();
             if (player.getWorld() != Paintball.getPbWorld()) {
                 continue;
             }

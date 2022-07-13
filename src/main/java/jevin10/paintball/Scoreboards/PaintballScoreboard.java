@@ -5,6 +5,7 @@ import jevin10.paintball.Paintball;
 import jevin10.paintball.Runnables.ArenaTimer;
 import jevin10.paintball.Runnables.EndTimer;
 import jevin10.paintball.Runnables.LobbyTimer;
+import jevin10.paintball.Utils.PlayerData;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -72,7 +73,8 @@ public class PaintballScoreboard {
         lobbyObjective.getScore("☻  " + Paintball.getGameScoreboard().getPlayers().size()).setScore(4);
 
         // Score 3: Game Starts:
-        lobbyObjective.getScore("⌛  " + LobbyTimer.getTimerColor() + LobbyTimer.getCountdownTimer()).setScore(3);
+        LobbyTimer lobbyTimer = LobbyTimer.getLobbyTimers().get(LobbyTimer.getLobbyTimers().size() - 1);
+        lobbyObjective.getScore("⌛  " + lobbyTimer.getTimerColor() + lobbyTimer.getCountdownTimer()).setScore(3);
 
         lobbyObjective.getScore("  ").setScore(2);
 
@@ -99,12 +101,13 @@ public class PaintballScoreboard {
         arenaObjective.getScore("⛨  ").setScore(5);
 
         // Score 4: Game Starts:
-        arenaObjective.getScore("⌛  " + ArenaTimer.getTimerColor() + ArenaTimer.getCountdownTimer()).setScore(4);
+        ArenaTimer arenaTimer = ArenaTimer.getArenaTimers().get(ArenaTimer.getArenaTimers().size() - 1);
+        arenaObjective.getScore("⌛  " + arenaTimer.getTimerColor() + arenaTimer.getCountdownTimer()).setScore(4);
 
         arenaObjective.getScore("  ").setScore(3);
 
-        arenaObjective.getScore("⚔  0").setScore(2);
-        arenaObjective.getScore("©  0").setScore(1);
+        arenaObjective.getScore("⚔  " + PlayerData.getKills(p)).setScore(2);
+        arenaObjective.getScore("©  " + PlayerData.getCoins(p)).setScore(1);
 
         arenaObjective.getScore("   ").setScore(0);
 
@@ -118,7 +121,8 @@ public class PaintballScoreboard {
         endObjective.getScore(" ").setScore(7);
 
         // Score 4: Returning to lobby:
-        endObjective.getScore("⌛  " + EndTimer.getTimerColor() + EndTimer.getCountdownTimer()).setScore(6);
+        EndTimer endTimer = EndTimer.getEndTimers().get(EndTimer.getEndTimers().size() - 1);
+        endObjective.getScore("⌛  " + endTimer.getTimerColor() + endTimer.getCountdownTimer()).setScore(6);
 
         return endObjective;
     }

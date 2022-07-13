@@ -19,7 +19,7 @@ public class PlayerRespawnListener implements Listener {
             if (!Paintball.getGameScoreboard().getPlayers().contains(p)) {
                 Paintball.getGameScoreboard().addPlayerToTeam("no", p);
             }
-            if (Paintball.getGameScoreboard().getGameInstance().equals("lobby") || Paintball.getGameScoreboard().getGameInstance().equals("end")) {
+            if (Paintball.getGameScoreboard().getGameInstance().equals("lobby") | Paintball.getGameScoreboard().getGameInstance().equals("end")) {
                 event.setRespawnLocation(Paintball.getPlugin().getConfig().getLocation("lobbyLocation"));
             }
             else if (Paintball.getGameScoreboard().getGameInstance().equals("arena")) {

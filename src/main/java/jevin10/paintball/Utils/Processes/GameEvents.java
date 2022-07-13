@@ -6,7 +6,6 @@ import jevin10.paintball.Utils.PlayerData;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.Set;
@@ -18,6 +17,7 @@ public class GameEvents {
         Paintball.getGameScoreboard().addKillToTeam(killerTeam);
         PlayerData.addDeath(killed);
         PlayerData.addKill(killer);
+        PlayerData.addCoins(killer);
     }
     public static void gameWin(String team) {
         Paintball.getGameScoreboard().setGameInstance("end");
@@ -30,7 +30,11 @@ public class GameEvents {
                 p.getPlayer().sendTitle("GAME WON! ☺", ChatColor.BLUE + String.valueOf(Paintball.getGameScoreboard().getBlueTeamKills()) + ChatColor.WHITE + " - " + ChatColor.RED + Paintball.getGameScoreboard().getRedTeamKills(), 10, 128, 10);
                 PlayerData.addWin(p.getPlayer());
                 Player onlinePlayer = p.getPlayer();
-                onlinePlayer.sendMessage(PlayerData.getMVP().getName() + " was the MVP with " + PlayerData.getKills(PlayerData.getMVP()) + " kills!");
+                if (PlayerData.getMVP() == null) {
+                    onlinePlayer.sendMessage("No MVP was awarded!");
+                } else {
+                    onlinePlayer.sendMessage(PlayerData.getMVP().getName() + " was the MVP with " + PlayerData.getKills(PlayerData.getMVP()) + " kills!");
+                }
             }
         }
 
@@ -39,20 +43,25 @@ public class GameEvents {
                 p.getPlayer().sendTitle("GAME LOST! ☹", ChatColor.BLUE + String.valueOf(Paintball.getGameScoreboard().getBlueTeamKills()) + ChatColor.WHITE + " - " + ChatColor.RED + Paintball.getGameScoreboard().getRedTeamKills(), 10, 128, 10);
                 PlayerData.addLoss(p.getPlayer());
                 Player onlinePlayer = p.getPlayer();
-                onlinePlayer.sendMessage(PlayerData.getMVP().getName() + " was the MVP with " + PlayerData.getKills(PlayerData.getMVP()) + " kills!");
+                if (PlayerData.getMVP() == null) {
+                    onlinePlayer.sendMessage("No MVP was awarded!");
+                } else {
+                    onlinePlayer.sendMessage(PlayerData.getMVP().getName() + " was the MVP with " + PlayerData.getKills(PlayerData.getMVP()) + " kills!");
+                }
             }
         }
 
         Paintball.getGameScoreboard().resetScores();
         Paintball.getGameScoreboard().resetTeams();
 
-
-        EndTimer.setTimer(10);
-        EndTimer.startTimer();
+        EndTimer endTimer = new EndTimer(10);
+        endTimer.startTimer();
     }
 
     public static void gameTimeOut() {
+        // gameDraw event
         if (Paintball.getGameScoreboard().getBlueTeamKills() == Paintball.getGameScoreboard().getRedTeamKills()) {
+            Paintball.getGameScoreboard().setGameInstance("end");
             for (Player p : Paintball.getGameScoreboard().getPlayers()) {
                 p.sendTitle("GAME DRAW!", ChatColor.BLUE + String.valueOf(Paintball.getGameScoreboard().getBlueTeamKills()) + ChatColor.WHITE + " - " + ChatColor.RED + Paintball.getGameScoreboard().getRedTeamKills(), 10, 128, 10);
                 if (PlayerData.getMVP() == null) {
@@ -61,10 +70,15 @@ public class GameEvents {
                     p.sendMessage(PlayerData.getMVP().getName() + " was the MVP with " + PlayerData.getKills(PlayerData.getMVP()) + " kills!");
                 }
             }
-            Paintball.getGameScoreboard().setGameInstance("end");
-            return;
+            Paintball.getGameScoreboard().resetScores();
+            Paintball.getGameScoreboard().resetTeams();
+
+            EndTimer endTimer = new EndTimer(10);
+            endTimer.startTimer();
+
+        } else {
+            String winningTeam = Paintball.getGameScoreboard().getBlueTeamKills() > Paintball.getGameScoreboard().getRedTeamKills() ? "blue" : "red";
+            gameWin(winningTeam);
         }
-        String winningTeam = Paintball.getGameScoreboard().getBlueTeamKills() > Paintball.getGameScoreboard().getRedTeamKills() ? "blue" : "red";
-        gameWin(winningTeam);
     }
 }

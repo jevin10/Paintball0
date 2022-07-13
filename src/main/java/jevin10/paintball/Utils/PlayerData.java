@@ -74,6 +74,20 @@ public class PlayerData {
     }
 
     /**
+     * Adds a coin to the player's data.
+     * @param player Player to add coin to.
+     */
+
+    public static void addCoins(Player player) {
+        PersistentDataContainer pData = player.getPersistentDataContainer();
+        if (!pData.has(new NamespacedKey(Paintball.getPlugin(), "coins"), PersistentDataType.INTEGER)) {
+            pData.set(new NamespacedKey(Paintball.getPlugin(), "coins"), PersistentDataType.INTEGER, 0);
+        }
+        int coins = getCoins(player);
+        pData.set(new NamespacedKey(Paintball.getPlugin(), "deaths"), PersistentDataType.INTEGER, coins + 1);
+    }
+
+    /**
      *
      * @param player Player to get kills from.
      * @return Integer of player's kill-count.
@@ -91,6 +105,19 @@ public class PlayerData {
     public static @Nullable Integer getDeaths(Player player) {
         PersistentDataContainer pData = player.getPersistentDataContainer();
         return pData.get(new NamespacedKey(Paintball.getPlugin(), "deaths"), PersistentDataType.INTEGER);
+    }
+
+    /**
+     *
+     * @param player Player to get coins from.
+     * @return Integer of player's coins count.
+     */
+    public static @Nullable Integer getCoins(Player player) {
+        PersistentDataContainer pData = player.getPersistentDataContainer();
+        if (!pData.has(new NamespacedKey(Paintball.getPlugin(), "coins"), PersistentDataType.INTEGER)) {
+            pData.set(new NamespacedKey(Paintball.getPlugin(), "coins"), PersistentDataType.INTEGER, 0);
+        }
+        return pData.get(new NamespacedKey(Paintball.getPlugin(), "coins"), PersistentDataType.INTEGER);
     }
 
     public static Player getMVP() {

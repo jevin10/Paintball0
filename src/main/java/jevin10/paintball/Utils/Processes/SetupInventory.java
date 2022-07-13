@@ -4,6 +4,7 @@ import jevin10.paintball.Paintball;
 import jevin10.paintball.Utils.ColorTranslator;
 import jevin10.paintball.Utils.ItemUtils;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.data.BlockData;
@@ -11,7 +12,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.CrossbowMeta;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.material.MaterialData;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -40,6 +44,11 @@ public class SetupInventory {
             }
         }
 
+        PlayerInventory playerInventory = p.getInventory();
+        try {
+            playerInventory.setChestplate(null);
+        } catch (Exception ignored) {}
+
         inventory.setItem(7, menu);
         inventory.setItem(8, stats);
     }
@@ -50,7 +59,9 @@ public class SetupInventory {
      */
     public static void arena(Player p) {
         Inventory inventory = p.getInventory();
+        String playerTeam = Paintball.getGameScoreboard().getScoreboard().getPlayerTeam(p).getName();
 
+        // Paintball gun
         ItemStack paintballGun = ItemUtils.makeItem(Material.CROSSBOW, ChatColor.WHITE + "Paintball Gun", ChatColor.WHITE + "A basic paintball gun.");
         CrossbowMeta cbMeta = (CrossbowMeta) paintballGun.getItemMeta();
         cbMeta.addChargedProjectile(ItemUtils.makeItem(Material.ARROW, ChatColor.WHITE + "6 DMG"));
@@ -58,6 +69,34 @@ public class SetupInventory {
         paintballGunData.set(new NamespacedKey(Paintball.getPlugin(), "name"), PersistentDataType.STRING, "Paintball Gun");
         paintballGun.setItemMeta(cbMeta);
 
+        // Paintball vest
+        ItemStack paintballVest = ItemUtils.makeItem(Material.LEATHER_CHESTPLATE, ChatColor.WHITE + "Paintball Vest", ChatColor.WHITE + "A basic paintball vest.");
+
+        switch(playerTeam) {
+            case "red" -> {
+                ItemMeta vestMeta = paintballVest.getItemMeta();
+                vestMeta.setDisplayName(ChatColor.RED + "Paintball Vest");
+                LeatherArmorMeta redVestMeta = (LeatherArmorMeta) vestMeta;
+                redVestMeta.setColor(Color.RED);
+                paintballVest.setItemMeta(redVestMeta);
+            }
+            case "blue" -> {
+                ItemMeta vestMeta2 = paintballVest.getItemMeta();
+                vestMeta2.setDisplayName(ChatColor.BLUE + "Paintball Vest");
+                LeatherArmorMeta blueVestMeta = (LeatherArmorMeta) vestMeta2;
+                blueVestMeta.setColor(Color.BLUE);
+                paintballVest.setItemMeta(blueVestMeta);
+            }
+            case "none" -> {
+                ItemMeta vestMeta3 = paintballVest.getItemMeta();
+                vestMeta3.setDisplayName(ChatColor.WHITE + "Paintball Vest");
+                LeatherArmorMeta noneVestMeta = (LeatherArmorMeta) vestMeta3;
+                noneVestMeta.setColor(Color.WHITE);
+                paintballVest.setItemMeta(noneVestMeta);
+            }
+        }
+
+        // Paintball ammo
         ItemStack ammo = ItemUtils.makeItem(Material.IRON_INGOT, ChatColor.WHITE + "Ammo", ChatColor.WHITE + "Your ammo.");
         ammo.setAmount(32);
 
@@ -71,6 +110,8 @@ public class SetupInventory {
 
         inventory.setItem(0, paintballGun);
         inventory.setItem(1, ammo);
+        PlayerInventory playerInventory = p.getInventory();
+        playerInventory.setChestplate(paintballVest);
     }
 
     /**

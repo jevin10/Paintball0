@@ -1,5 +1,7 @@
 package jevin10.paintball;
 
+import jevin10.paintball.BossBars.ArenaBossBar;
+import jevin10.paintball.BossBars.LobbyBossBar;
 import jevin10.paintball.Exceptions.MenuManagerException;
 import jevin10.paintball.Exceptions.MenuManagerNotSetupException;
 import jevin10.paintball.Menus.ChooseTeamMenu;
@@ -51,6 +53,12 @@ public class PaintballCommand implements CommandExecutor {
                     Paintball.getGameScoreboard().addPlayerToTeam("no", player);
                     SetupInventory.lobby(player);
 
+                    LobbyBossBar lobbyBossBar = LobbyBossBar.getLobbyBossBarList().get(LobbyBossBar.getLobbyBossBarList().size() - 1);
+
+                    if (!lobbyBossBar.getBossBar().getPlayers().contains(player)) {
+                        lobbyBossBar.addPlayer(player);
+                    }
+
                     try {
                         MenuManager.openMenu(ChooseTeamMenu.class, player);
                         BukkitTask updateChooseTeamMenu = new ChooseTeamMenuRunnable(player).runTaskTimer(Paintball.getPlugin(), 0L, 10L);
@@ -61,8 +69,11 @@ public class PaintballCommand implements CommandExecutor {
                     BukkitTask scoreboardRunnable = new ScoreboardRunnable(player).runTaskTimer(plugin, 0L, 10L);
                 }
 
-                LobbyTimer.setTimer(60);
-                LobbyTimer.startTimer();
+                LobbyTimer lobbyTimer = new LobbyTimer(60);
+                lobbyTimer.startTimer();
+
+                ArenaBossBar arenaBossBar = new ArenaBossBar(Paintball.getPlugin());
+                arenaBossBar.createBar();
 
                 return true;
             }

@@ -1,13 +1,20 @@
 package jevin10.paintball;
 
+import jevin10.paintball.BossBars.ArenaBossBar;
+import jevin10.paintball.BossBars.LobbyBossBar;
 import jevin10.paintball.Listeners.*;
 import jevin10.paintball.Utils.MenuManager.MenuManager;
 import jevin10.paintball.Runnables.TeamComponentRunnable;
 import jevin10.paintball.Scoreboards.GameScoreboard;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public final class Paintball extends JavaPlugin {
@@ -15,7 +22,9 @@ public final class Paintball extends JavaPlugin {
     static Plugin plugin;
     static World pbWorld = null;
 
-    static GameScoreboard gameScoreboard = new GameScoreboard();
+    static GameScoreboard gameScoreboard = null;
+
+    public LobbyBossBar lobbyBossBar;
 
     @Override
     public void onEnable() {
@@ -40,11 +49,22 @@ public final class Paintball extends JavaPlugin {
 
         BukkitTask teamComponentRunnable = new TeamComponentRunnable().runTaskTimer(plugin, 0L, 10L);
 
+        // Setup GameScoreboard
+        gameScoreboard = new GameScoreboard();
+
+        // Setup LobbyBossBar
+        lobbyBossBar = new LobbyBossBar(plugin);
+        lobbyBossBar.createBar();
+
+
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        lobbyBossBar.getBossBar().removeAll();
+        ArenaBossBar arenaBossBar = ArenaBossBar.getArenaBossBarList().get(ArenaBossBar.getArenaBossBarList().size() - 1);
+        arenaBossBar.getBossBar().removeAll();
     }
 
     public static Plugin getPlugin() {

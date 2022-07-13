@@ -10,45 +10,60 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
-public class LobbyTimer {
-    static int time;
-    static int taskID;
+import java.util.ArrayList;
+import java.util.List;
 
-    /**
-     * Resets the CountdownTimer to the amount specified.
-     * @param amount Integer in seconds that you'd like to set the countdown timer to.
-     */
-    public static void setTimer(int amount) {
-        time = amount;
+public class LobbyTimer {
+    int time;
+    int taskID;
+    static List<LobbyTimer> lobbyTimers = new ArrayList<>();
+
+    public LobbyTimer(int time) {
+        this.time = time;
+        lobbyTimers.add(this);
+    }
+
+    public static List<LobbyTimer> getLobbyTimers() {
+        return lobbyTimers;
     }
 
     /**
      * Starts the CountdownTimer
      */
-    public static void startTimer() {
+    public void startTimer() {
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         taskID = scheduler.scheduleSyncRepeatingTask(Paintball.getPlugin(), new Runnable() {
             @Override
             public void run() {
                 if(time == 0) {
+                    if (!Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
+                        stopTimer();
+                        return;
+                    }
+
                     for (Player player : Paintball.getGameScoreboard().getPlayers()) {
-                        if (!Paintball.getGameScoreboard().getGameInstance().equals("lobby")) {
-                            stopTimer();
-                            return;
+                        if (Paintball.getGameScoreboard().getScoreboard().getPlayerTeam(player).getName().equals("no")) {
+                            player.sendMessage("You have been removed from the game because you didn't join the game in time.");
+                            continue;
                         }
-                        Location location = Paintball.getPlugin().getConfig().getLocation("arenaLocation");
-                        assert location != null : Bukkit.broadcast(Component.text("Set an Arena location with /paintball setArena first!"));
+                        String playerTeam = Paintball.getGameScoreboard().getScoreboard().getPlayerTeam(player).getName();
+                        if (playerTeam.equals("red")) {
+                            Location location = new Location(Paintball.getPbWorld(), 3366.0, -60.0, 205.0, 90, -4);
+                            player.teleport(location);
+                        } else if (playerTeam.equals("blue")) {
+                            Location location = new Location(Paintball.getPbWorld(),  3307.0, -60.0, 254.0, -90, -4);
+                            player.teleport(location);
+                        }
                         SetupInventory.arena(player);
                         PlayerData.resetPlayerData(player);
-                        player.teleport(location);
-
                     }
+
                     stopTimer();
 
                     Paintball.getGameScoreboard().setGameInstance("arena");
 
-                    ArenaTimer.setTimer(600);
-                    ArenaTimer.startTimer();
+                    ArenaTimer arenaTimer = new ArenaTimer(600);
+                    arenaTimer.startTimer();
 
                     return;
                 }
@@ -57,12 +72,12 @@ public class LobbyTimer {
         }, 0L, 20L);
     }
 
-    public static void stopTimer() {
+    public void stopTimer() {
         System.out.println("Stopping Lobby Timer");
         Bukkit.getScheduler().cancelTask(taskID);
     }
 
-    public static String getCountdownTimer() {
+    public String getCountdownTimer() {
         int minutes = Math.floorDiv(time, 60);
         int seconds = time%60;
         if (Paintball.getGameScoreboard().getGameInstance().contains("arena")) {
@@ -75,7 +90,7 @@ public class LobbyTimer {
         }
     }
 
-    public static ChatColor getTimerColor() {
+    public ChatColor getTimerColor() {
         if (time >= 60) {
             return ChatColor.GREEN;
         } else if (time > 10) {
